@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,16 +37,50 @@ public class ThirdActivity extends AppCompatActivity {
         btnWeb = (ImageButton) findViewById(R.id.btnWeb);
         btnCamara = (ImageButton) findViewById(R.id.btnCamara);
 
+        //Boton para llamar
         btnTelefono.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String numeroTelefono = edTelefono.getText().toString();
-                if(numeroTelefono != null){
+                if(numeroTelefono != null && !numeroTelefono.isEmpty()){
 
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                        //NOTA: En las versiones anteriores era "Manifest.permission.CALL_PHONE"
-                        //Ahora tengo que anteponer "android.Manifest.permission.CALL_PHONE"
-                        requestPermissions(new String[]{android.Manifest.permission.CALL_PHONE}, PHONE_CALL_CODE);
+
+                        //Comprobar si ha aceptado, no ha aceptado o nunca se la preguntado
+                        if(ChecarPermiso(android.Manifest.permission.CALL_PHONE)){
+
+                            //Ha aceptado
+                            Intent intentLlamar = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + numeroTelefono));
+
+                            if(ActivityCompat.checkSelfPermission(ThirdActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                                return;//Si no entra aquí, continua con el flujo
+                            }
+
+                            startActivity(intentLlamar);
+                        }else{
+
+                            //Ha denegado o es la primera vez que se le pregunta
+                            if(!shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE)){
+
+                                //No se le ha preguntado aun
+                                //NOTA: En las versiones anteriores era "Manifest.permission.CALL_PHONE"
+                                //Ahora tengo que anteponer "android.Manifest.permission.CALL_PHONE"
+                                requestPermissions(new String[]{android.Manifest.permission.CALL_PHONE}, PHONE_CALL_CODE);
+
+                            }else{
+
+                                //Ha denegado
+                                Toast.makeText(ThirdActivity.this, "Por favor, habilite el permiso para llamar", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                i.addCategory(Intent.CATEGORY_DEFAULT);
+                                i.setData(Uri.parse("package:" + getPackageName())); //Paquete de esta aplicación
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                startActivity(i);
+
+                            }
+                        }
                     }else{
                         OldVersions(numeroTelefono);
                     }
@@ -61,6 +97,22 @@ public class ThirdActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //Boton para ir al navegador
+        btnWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String direccionWeb = edWeb.getText().toString();
+                if(direccionWeb != null && !direccionWeb.isEmpty()){
+                    Intent intentWeb = new Intent();
+                    //Una forma diferente de agregar los parametros
+                    intentWeb.setAction(Intent.ACTION_VIEW);
+                    intentWeb.setData(Uri.parse("http://" + direccionWeb));
+
+                    startActivity(intentWeb);
+                }
+            }
+        });
     }
 
     @Override
@@ -70,6 +122,7 @@ public class ThirdActivity extends AppCompatActivity {
         switch(requestCode){
             case PHONE_CALL_CODE:
 
+                //Como solo estámos solicitando un permiso, apuntamos a la posicion 0
                 String permission = permissions[0];
                 int result = grantResults[0];
 
@@ -82,7 +135,7 @@ public class ThirdActivity extends AppCompatActivity {
                         //El "tel:" tiene que llevar los ":" obligatoriamente para que funcione bien
                         Intent intentLlamar = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + numeroTelefono));
                         if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                            return;
+                            return;//Si no entra aquí, continua con el flujo
                         }
                         startActivity(intentLlamar);
                     }else{
