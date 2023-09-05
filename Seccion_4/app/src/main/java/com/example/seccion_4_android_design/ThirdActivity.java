@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -23,6 +24,13 @@ public class ThirdActivity extends AppCompatActivity {
     private ImageButton btnTelefono;
     private ImageButton btnWeb;
     private ImageButton btnCamara;
+    private Button btnIrAMarcar;
+    private Button btnIrContactos;
+    private EditText edCorreoRapido;
+    private ImageButton btnCorreoRapido;
+    private EditText edTituloCorreo;
+    private EditText edDescripcionCorreo;
+    private Button btnCorreoCompleto;
 
     private final int PHONE_CALL_CODE = 100;
 
@@ -36,6 +44,14 @@ public class ThirdActivity extends AppCompatActivity {
         btnTelefono = (ImageButton) findViewById(R.id.btnTelefono);
         btnWeb = (ImageButton) findViewById(R.id.btnWeb);
         btnCamara = (ImageButton) findViewById(R.id.btnCamara);
+        btnIrAMarcar = (Button) findViewById(R.id.btnIrAMarcar);
+        btnIrContactos = (Button) findViewById(R.id.btnIrContactos);
+        edCorreoRapido = (EditText) findViewById(R.id.edCorreoRapido);
+        btnCorreoRapido = (ImageButton) findViewById(R.id.btnCorreoRapido);
+        edTituloCorreo = (EditText) findViewById(R.id.edTituloCorreo);
+        edDescripcionCorreo = (EditText) findViewById(R.id.edDescripcionCorreo);
+        btnCorreoCompleto = (Button) findViewById(R.id.btnCorreoCompleto);
+
 
         //Boton para llamar
         btnTelefono.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +114,18 @@ public class ThirdActivity extends AppCompatActivity {
             }
         });
 
+        //Boton para ir a marcar (sin permisos requeridos)
+        btnIrAMarcar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String numeroTelefono = edTelefono.getText().toString();
+                if(numeroTelefono != null && !numeroTelefono.isEmpty()){
+                    Intent irMarcar = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + numeroTelefono));
+                    startActivity(irMarcar);
+                }
+            }
+        });
+
         //Boton para ir al navegador
         btnWeb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +141,55 @@ public class ThirdActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //Boton para ir a la aplicación de contactos
+        btnIrContactos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent irContactos = new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people"));
+                startActivity(irContactos);
+            }
+        });
+
+        //Boton para correo rapido
+        btnCorreoRapido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nombreDestino = edCorreoRapido.getText().toString();
+                if(nombreDestino != null && !nombreDestino.isEmpty()){
+                    Intent correoRapido = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + nombreDestino));
+                    startActivity(correoRapido);
+                }
+            }
+        });
+
+        //Enviar un correo completo
+        btnCorreoCompleto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String correo = edCorreoRapido.getText().toString();
+                String titulo = edTituloCorreo.getText().toString();
+                String descripcion = edDescripcionCorreo.getText().toString();
+                if(validarTexto(correo) && validarTexto(titulo) && validarTexto(descripcion)){
+                    Intent correoCompleto = new Intent(Intent.ACTION_VIEW, Uri.parse(correo));
+                    correoCompleto.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+                    correoCompleto.setType("plain/text");
+                    correoCompleto.putExtra(Intent.EXTRA_SUBJECT, titulo);
+                    correoCompleto.putExtra(Intent.EXTRA_TEXT, descripcion);
+                    correoCompleto.putExtra(Intent.EXTRA_EMAIL, new String[] { correo });
+
+                    startActivity(correoCompleto);
+                }
+            }
+
+            public boolean validarTexto(String cadena){
+                if(cadena != null && !cadena.isEmpty()){
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 
     @Override

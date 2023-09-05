@@ -7,6 +7,13 @@
 
     <!--Third activity-->
     <string name="hintTelefono">Teléfono</string>
+    <string name="textoTelefono" >Ir a marcar</string>
     <string name="hintWeb">Web</string>
+    <string name="textoContactos">Contactos</string>
+    <string name="edCorreoRapido">Correo Rápido</string>
+    <string name="hintTituloCorreo" >Título/Asunto</string>
+    <string name="hintDescripcionCorreo" >Descripcion</string>
+    <string name="textoCorreoCompleto">Correo completo</string>
+
 
 </resources>
