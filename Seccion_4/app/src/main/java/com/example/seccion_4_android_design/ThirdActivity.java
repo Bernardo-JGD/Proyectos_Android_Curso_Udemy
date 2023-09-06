@@ -171,14 +171,21 @@ public class ThirdActivity extends AppCompatActivity {
                 String titulo = edTituloCorreo.getText().toString();
                 String descripcion = edDescripcionCorreo.getText().toString();
                 if(validarTexto(correo) && validarTexto(titulo) && validarTexto(descripcion)){
-                    Intent correoCompleto = new Intent(Intent.ACTION_VIEW, Uri.parse(correo));
-                    correoCompleto.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+
+                    Intent correoCompleto = new Intent(Intent.ACTION_SEND, Uri.parse(correo));
+
                     correoCompleto.setType("plain/text");
+
                     correoCompleto.putExtra(Intent.EXTRA_SUBJECT, titulo);
                     correoCompleto.putExtra(Intent.EXTRA_TEXT, descripcion);
                     correoCompleto.putExtra(Intent.EXTRA_EMAIL, new String[] { correo });
 
-                    startActivity(correoCompleto);
+                    //Aquí igual me permite seleccionar la aplicación de correo
+                    //startActivity(correoCompleto);
+
+                    //Además de abrir la selección de correo, me permite poner un mensaje para el usuario
+                    startActivity(Intent.createChooser(correoCompleto, "Elige una aplicación de correo"));
+
                 }
             }
 
