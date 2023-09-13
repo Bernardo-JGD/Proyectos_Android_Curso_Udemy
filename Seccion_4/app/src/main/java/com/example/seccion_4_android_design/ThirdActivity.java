@@ -39,6 +39,9 @@ public class ThirdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_protos);
+
         edTelefono = (EditText) findViewById(R.id.edTelefono);
         edWeb = (EditText) findViewById(R.id.edWeb);
         btnTelefono = (ImageButton) findViewById(R.id.btnTelefono);

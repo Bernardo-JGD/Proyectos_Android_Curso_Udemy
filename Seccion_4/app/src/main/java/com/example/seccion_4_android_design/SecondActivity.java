@@ -19,6 +19,13 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+        //Boton superior izquierdo para regresar
+        //Al parecer funcionar sin modificar el manifest con la etiqueta meta-data
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_protos);
+
         tv1 = (TextView) findViewById(R.id.tv1);
         btnActivity_2 = (Button) findViewById(R.id.btnActivity_2);
 

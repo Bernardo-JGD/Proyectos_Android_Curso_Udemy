@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_4/app/src/main/res/drawable/ic_protos_background.xml" value="0.1945" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_4/app/src/main/res/layout/activity_ejercicio_parte1.xml" value="0.529351184346035" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_4/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_4/app/src/main/res/layout/activity_second.xml" value="0.20416666666666666" />
         <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_4/app/src/main/res/layout/activity_third.xml" value="0.25" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_4/app/src/main/res/layout/custom_seekbar_progress.xml" value="0.22" />
         <entry key="..\:/ProyectosAndroid/Proyectos_Curso/app/src/main/res/layout/activity_main.xml" value="0.10674157303370786" />
         <entry key="..\:/ProyectosAndroid/Proyectos_Curso/app/src/main/res/layout/activity_second.xml" value="0.20416666666666666" />
         <entry key="..\:/ProyectosAndroid/Proyectos_Curso/app/src/main/res/layout/activity_third.xml" value="0.75" />

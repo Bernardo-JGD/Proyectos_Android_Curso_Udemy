@@ -1,19 +1,35 @@
 <resources>
-    <string name="app_name">Seccion_4_Android_Design</string>
+    <string name="app_name">S4_Intents</string>
     <string name="etiquetaActivity_1">Activity 1</string>
     <string name="etiquetaActivity_2">Activity 2</string>
     <string name="btnActivity_1">Ir activity 2</string>
     <string name="btnActivity_2">Ir activity 3</string>
 
+    <string name="irActivityEjercicio">Ejercicio</string>
+
     <!--Third activity-->
     <string name="hintTelefono">Teléfono</string>
-    <string name="textoTelefono" >Ir a marcar</string>
+    <string name="textoTelefono">Ir a marcar</string>
     <string name="hintWeb">Web</string>
     <string name="textoContactos">Contactos</string>
     <string name="edCorreoRapido">Correo Rápido</string>
-    <string name="hintTituloCorreo" >Título/Asunto</string>
-    <string name="hintDescripcionCorreo" >Descripcion</string>
+    <string name="hintTituloCorreo">Título/Asunto</string>
+    <string name="hintDescripcionCorreo">Descripcion</string>
     <string name="textoCorreoCompleto">Correo completo</string>
 
+    <!--Ejercicio_parte_1-->
+    <string name="txtInstruccion" >Seleccione una fruta</string>
+    <string name="columnaFruta" >Fruta</string>
+    <string name="columnaPrecio" >Precio</string>
+
+    <string name="rbMango" >Mango</string>
+    <string name="rbPlatano" >Plátano</string>
+    <string name="rbMelon" >Melón</string>
+
+    <string name="precioMango" >$ 55</string>
+    <string name="precioPlatano" >$ 35</string>
+    <string name="precioMelon" >$ 45</string>
+
+    <string name="txtCantidadFruta" >Número Kg</string>
 
 </resources>
