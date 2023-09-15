@@ -3,14 +3,14 @@
     <!-- Barra de progreso (background) -->
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="#CCCCCC" /> <!-- Cambia el color y otros atributos según lo desees -->
+            <solid android:color="#000000" /> <!-- Cambia el color y otros atributos según lo desees -->
         </shape>
     </item>
     <!-- Barra de progreso (progress) -->
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <solid android:color="#00FF00" /> <!-- Cambia el color y otros atributos según lo desees -->
+                <solid android:color="#038003" /> <!-- Cambia el color y otros atributos según lo desees -->
             </shape>
         </clip>
     </item>

@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Ejercicio_parte_1">
 
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +28,6 @@
             android:text="@string/txtInstruccion"
             android:textSize="25sp" />
     </RelativeLayout>
-
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -108,17 +108,20 @@
     </RelativeLayout>
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBarKilosFruta"
+        style="@style/SeekBarCustomStyle"
         android:layout_width="250dp"
         android:layout_height="25dp"
-        style="@style/SeekBarCustomStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
+        android:max="1"
+        android:min="1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNumeroKg" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvNumeroKg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -128,5 +131,64 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+
+    <TextView
+        android:id="@+id/tvTotalFruta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/tvTotalFruta"
+        android:textColor="#000"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarKilosFruta" />
+
+    <Spinner
+        android:id="@+id/spinnerMetodoPago"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        style="@style/SpinnerTextStyle"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/border_spinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalFruta" />
+
+    <TextView
+        android:id="@+id/tvSaldoTarjeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/tvSaldoTarjeta"
+        android:textSize="20sp"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMetodoPago" />
+
+    <EditText
+        android:id="@+id/edEfectivo"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="@string/hintedEfectivo"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/spinnerMetodoPago"
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalFruta" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="0dp"
+        android:text="@string/btnPagar"
+        app:backgroundTint="@color/verde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

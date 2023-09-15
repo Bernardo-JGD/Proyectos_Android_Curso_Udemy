@@ -30,6 +30,11 @@
     <string name="precioPlatano" >$ 35</string>
     <string name="precioMelon" >$ 45</string>
 
-    <string name="txtCantidadFruta" >Número Kg</string>
+    <string name="txtCantidadFruta" >Número Kg: 1</string>
+    <string name="tvTotalFruta">Total: $ </string>
+    <string name="tvSaldoTarjeta" >Saldo: $ </string>
+    <string name="hintedEfectivo" >$$$</string>
+
+    <string name="btnPagar" >Pagar</string>
 
 </resources>
