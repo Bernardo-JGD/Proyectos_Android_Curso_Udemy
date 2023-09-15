@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Seccion_5_List_Grid_View</string>
+    
+    <string name="btnIrListViewSimple" >LV Simple</string>
+</resources>

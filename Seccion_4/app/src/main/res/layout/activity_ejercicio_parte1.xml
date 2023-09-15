@@ -139,21 +139,22 @@
         android:layout_marginTop="20dp"
         android:text="@string/tvTotalFruta"
         android:textColor="#000"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBarKilosFruta" />
 
     <Spinner
         android:id="@+id/spinnerMetodoPago"
+        style="@style/SpinnerTextStyle"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        style="@style/SpinnerTextStyle"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/border_spinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTotalFruta" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalFruta"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/tvSaldoTarjeta"
@@ -174,14 +175,15 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="number"
         android:hint="@string/hintedEfectivo"
-        android:textSize="20dp"
+        android:inputType="number"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/spinnerMetodoPago"
-        app:layout_constraintTop_toBottomOf="@+id/tvTotalFruta" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalFruta"
+        tools:ignore="TextContrastCheck" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnPagar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="0dp"
@@ -190,5 +192,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edIngresarSaldo"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/hintIngresarSaldo"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSaldoTarjeta" />
+
+    <Button
+        android:id="@+id/btnIngresarSaldo"
+        android:layout_width="115dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/btnIngresarSaldo"
+        app:layout_constraintStart_toEndOf="@+id/edIngresarSaldo"
+        app:layout_constraintTop_toBottomOf="@+id/tvSaldoTarjeta" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,11 +3,16 @@ package com.example.seccion_4_android_design;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,12 +43,23 @@ public class Ejercicio_parte_1 extends AppCompatActivity {
     private static final int maxPlatano = 6;
     private static final int maxMelon = 8;
 
+    private int total = 0;
+    private int kilos = 1;
+    private boolean haSeleccionadoFruta = false;
+    private String formaPagoSeleccionada = "";
+    private int saldoTarjeta = 0;
+
     private SeekBar seekBarKilosFruta;
     private RadioGroup rgFrutas;
     private Spinner spinnerMetodoPago;
+    private Button btnPagar;
+    private EditText edEfectivo;
+    private EditText edIngresarSaldo;
+    private Button btnIngresarSaldo;
 
     private TextView tvTotalFruta;
     private TextView tvNumeroKg;
+    private TextView tvSaldoTarjeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +71,11 @@ public class Ejercicio_parte_1 extends AppCompatActivity {
         tvTotalFruta = (TextView) findViewById(R.id.tvTotalFruta);
         tvNumeroKg = (TextView) findViewById(R.id.tvNumeroKg);
         spinnerMetodoPago = (Spinner) findViewById(R.id.spinnerMetodoPago);
+        edEfectivo = (EditText) findViewById(R.id.edEfectivo);
+        edIngresarSaldo = (EditText) findViewById(R.id.edIngresarSaldo);
+        tvSaldoTarjeta = (TextView) findViewById(R.id.tvSaldoTarjeta);
+        btnIngresarSaldo = (Button) findViewById(R.id.btnIngresarSaldo);
+        btnPagar = (Button) findViewById(R.id.btnPagar);
 
         String[] metodosPago = {"Efectivo", "Tarjeta"};
         ArrayAdapter<String> adaptadorSpinner = new ArrayAdapter<String>(this, R.layout.spinner_item_forma_pago, metodosPago);
@@ -63,8 +84,7 @@ public class Ejercicio_parte_1 extends AppCompatActivity {
         rgFrutas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int kilos = 1;
-                int total = 0;
+                kilos = 1;
                 String totalString = "Total: $";
                 seekBarKilosFruta.setProgress(kilos);
                 frutaSeleccionada = checkedId;
@@ -72,21 +92,24 @@ public class Ejercicio_parte_1 extends AppCompatActivity {
 
                     case rbIdMango:
                         seekBarKilosFruta.setMax(maxMango);
-                        total = calcularPrecio(precioMango, kilos);
+                        total = calcularPrecio(precioMango);
+                        haSeleccionadoFruta = true;
                         break;
 
                     case rbIdPlatano:
                         seekBarKilosFruta.setMax(maxPlatano);
-                        total = calcularPrecio(precioPlatano, kilos);
+                        total = calcularPrecio(precioPlatano);
+                        haSeleccionadoFruta = true;
                         break;
 
                     case rbIdMelon:
                         seekBarKilosFruta.setMax(maxMelon);
-                        total = calcularPrecio(precioMelon, kilos);
+                        total = calcularPrecio(precioMelon);
+                        haSeleccionadoFruta = true;
                         break;
 
                     default:
-                        total = calcularPrecio(1, kilos);
+                        total = calcularPrecio(1);
                         break;
 
                 }
@@ -99,8 +122,9 @@ public class Ejercicio_parte_1 extends AppCompatActivity {
         seekBarKilosFruta.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvNumeroKg.setText("Numero Kg: " + progress);
-                int total = calcularPrecio(1, progress);
+                kilos = progress;
+                tvNumeroKg.setText("Numero Kg: " + kilos);
+                total = calcularPrecio(1);
                 tvTotalFruta.setText("Total: $ " + total);
             }
 
@@ -115,9 +139,80 @@ public class Ejercicio_parte_1 extends AppCompatActivity {
             }
         });
 
+        spinnerMetodoPago.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                formaPagoSeleccionada = parent.getItemAtPosition(position).toString();
+                if(formaPagoSeleccionada.equals("Efectivo")){
+                    habilitarPagoTarjeta(View.GONE);//Invisible
+                    edEfectivo.setVisibility(View.VISIBLE);//Visible
+                }else if(formaPagoSeleccionada.equals("Tarjeta")){
+                    habilitarPagoTarjeta(View.VISIBLE);//Visible
+                    edEfectivo.setVisibility(View.GONE);//Invisible
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        btnIngresarSaldo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String saldoIngresado = edIngresarSaldo.getText().toString();
+                if(!saldoIngresado.equals("") && !saldoIngresado.isEmpty()){
+                    saldoTarjeta += Integer.parseInt(saldoIngresado);
+                    tvSaldoTarjeta.setText("Saldo: $ " + saldoTarjeta);
+                    edIngresarSaldo.setText("");
+                }else{
+                    Toast.makeText(Ejercicio_parte_1.this, "Ingrese una cantidad por favor", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        btnPagar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(haSeleccionadoFruta){
+                    int cambio;
+                    if(formaPagoSeleccionada.equals("Efectivo")){
+                        int efectivo = Integer.parseInt(edEfectivo.getText().toString());
+
+                        if(efectivo>=total){
+                            cambio = efectivo-total;
+                            Toast.makeText(Ejercicio_parte_1.this, "Su cambio es de: $" + (cambio), Toast.LENGTH_LONG).show();
+                            Toast.makeText(Ejercicio_parte_1.this, "Gracias por su compra", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(Ejercicio_parte_1.this, "Pago insuficiente", Toast.LENGTH_LONG).show();
+                        }
+
+                    }else if(formaPagoSeleccionada.equals("Tarjeta")){
+                        if(saldoTarjeta>=total){
+                            cambio = saldoTarjeta - total;
+                            Toast.makeText(Ejercicio_parte_1.this, "Su cambio es de: $" + (cambio), Toast.LENGTH_LONG).show();
+                            Toast.makeText(Ejercicio_parte_1.this, "Gracias por su compra", Toast.LENGTH_LONG).show();
+                            saldoTarjeta = cambio;
+                            tvSaldoTarjeta.setText("Saldo: $ " + saldoTarjeta);
+                        }else{
+                            Toast.makeText(Ejercicio_parte_1.this, "Pago insuficiente", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                }else{
+                    Toast.makeText(Ejercicio_parte_1.this, "Seleccione una fruta por favor", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+
+
+
+        });
     }
 
-    private int calcularPrecio(int precioFruta, int kilos){
+    private int calcularPrecio(int precioFruta){
 
         if(frutaSeleccionada == rbIdMango){
             return (precioMango * kilos);
@@ -129,4 +224,23 @@ public class Ejercicio_parte_1 extends AppCompatActivity {
 
         return (precioFruta*kilos);
     }
+
+    private void habilitarPagoTarjeta(int visibilidad){
+        tvSaldoTarjeta.setVisibility(visibilidad);
+        edIngresarSaldo.setVisibility(visibilidad);
+        btnIngresarSaldo.setVisibility(visibilidad);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

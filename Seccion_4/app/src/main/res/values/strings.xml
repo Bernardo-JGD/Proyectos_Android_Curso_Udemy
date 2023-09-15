@@ -34,6 +34,8 @@
     <string name="tvTotalFruta">Total: $ </string>
     <string name="tvSaldoTarjeta" >Saldo: $ </string>
     <string name="hintedEfectivo" >$$$</string>
+    <string name="hintIngresarSaldo" >Ingrese saldo</string>
+    <string name="btnIngresarSaldo" >Ingresar</string>
 
     <string name="btnPagar" >Pagar</string>
 
