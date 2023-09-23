@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">Seccion_5_List_Grid_View</string>
-    
-    <string name="btnIrListViewSimple" >LV Simple</string>
+
+    <string name="btnIrListViewSimple">LV Simple</string>
+    <string name="btnIrGrid">Ir Grid</string>
+    <string name="btnIrPrueba">Prueba</string>
+
+    <string name="tvNombre">Nombre:</string>
+    <string name="tvEdad">Edad:</string>
+
+    <string name="btnIrFrutas">Proyecto frutas</string>
+    <string name="spinner_item_categoria" >Fruta/Verdura</string>
+
+    <string name="rbList">List</string>
+    <string name="rbGrid">Grid</string>
+    <string name="rbListGrid" >Ambos</string>
+
 </resources>

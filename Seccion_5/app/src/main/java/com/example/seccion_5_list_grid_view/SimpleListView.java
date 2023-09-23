@@ -32,11 +32,22 @@ public class SimpleListView extends AppCompatActivity {
         listaNombres.add("Pato Verde");
         listaNombres.add("Pato Azul");
 
-        // Adaptador, la forma visual en que se van a mostrar los datos
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaNombres);
+        //Adaptador: la forma visual en que se van a mostrar los datos
+        //Opcion 1
+
+        // Aquí usamos un layout y adaptador por defecto/predeterminado
+        //ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listaNombres);
 
         // Asignamos el Adaptador a nuestro listView
-        listView.setAdapter(adaptador);
+        //listView.setAdapter(adaptador);
+
+        //Opcion 2
+        //MiAdaptadorListView adaptadorPersonalizado = new MiAdaptadorListView(this, R.layout.list_item, listaNombres);
+        //listView.setAdapter(adaptadorPersonalizado);
+
+        //Opcion 3 (optimizado el 2)
+        MiAdaptadorOptimizado adaptadorPersonalizadoOptimizado = new MiAdaptadorOptimizado(this, R.layout.list_item, listaNombres);
+        listView.setAdapter(adaptadorPersonalizadoOptimizado);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

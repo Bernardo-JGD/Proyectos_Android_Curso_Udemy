@@ -3,9 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.1945" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/activity_grid_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/activity_list_view_prueba.xml" value="0.33" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/activity_main_registrar_frutas.xml" value="0.5640287769784172" />
         <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/activity_simple_list_view.xml" value="0.20416666666666666" />
-        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/list_item.xml" value="0.75" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/frutas_spinner_item.xml" value="0.5" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/grid_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/list_item.xml" value="0.25" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/layout/list_item_prueba.xml" value="0.67" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/menu/action_bar_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/menu/context_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/mipmap-anydpi-v26/ic_arandano.xml" value="0.205" />
+        <entry key="..\:/ProyectosAndroid/Proyectos/Seccion_5/app/src/main/res/mipmap-anydpi-v26/ic_arandano_round.xml" value="0.205" />
       </map>
     </option>
   </component>
