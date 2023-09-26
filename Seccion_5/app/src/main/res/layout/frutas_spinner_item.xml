@@ -13,5 +13,5 @@
         android:layout_marginBottom="10dp"
         android:text="@string/spinner_item_categoria"
         android:textStyle="bold"
-        android:textSize="18dp"/>
+        android:textSize="18sp"/>
 </LinearLayout>
