@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ProyectoFrutas.Activitys.MainRegistrarFrutas">
 
+    <!--
+    android:background="#FF5722" para el list
+    android:background="#03A9F4" para el grid
+    -->
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="236dp"
@@ -46,14 +51,19 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:background="#FF5722"/>
+            />
 
         <GridView
             android:id="@+id/gridViewFrutasVerduras"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:background="#03A9F4"
+            android:columnWidth="90dp"
+            android:gravity="center"
+            android:horizontalSpacing="0dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

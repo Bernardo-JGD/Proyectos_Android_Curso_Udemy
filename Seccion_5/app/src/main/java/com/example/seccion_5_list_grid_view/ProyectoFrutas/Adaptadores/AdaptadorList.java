@@ -51,12 +51,22 @@ public class AdaptadorList extends BaseAdapter {
         String frutaVerdura = ((FrutaVerdura) getItem(position)).getNombreFrutaVerdura();
         int imagenFrutaVerduraCodigo = ((FrutaVerdura) getItem(position)).getIcono();
 
-        TextView nombreFrutaVerdura = vista.findViewById(R.id.tvNombreFrutaVerdura);
-        ImageView ivFrutaVerdura = vista.findViewById(R.id.ivFrutaVerdura);
+        TextView nombreFrutaVerdura = vista.findViewById(R.id.tvNombreFrutaVerduraList);
+        ImageView ivFrutaVerdura = vista.findViewById(R.id.ivFrutaVerduraList);
 
         nombreFrutaVerdura.setText(frutaVerdura);
         ivFrutaVerdura.setImageResource(imagenFrutaVerduraCodigo);
 
         return vista;
+    }
+
+    public void clear(){
+        this.listaFrutasVerduras.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<FrutaVerdura> nuevaLista){
+        this.listaFrutasVerduras = nuevaLista;
+        notifyDataSetChanged();
     }
 }

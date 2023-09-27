@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.seccion_5_list_grid_view.ProyectoFrutas.Adaptadores.AdaptadorGrid;
 import com.example.seccion_5_list_grid_view.ProyectoFrutas.Adaptadores.AdaptadorList;
 import com.example.seccion_5_list_grid_view.ProyectoFrutas.Adaptadores.AdaptadorSpinnerCategoria;
 import com.example.seccion_5_list_grid_view.ProyectoFrutas.Modelo.FrutaVerdura;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MainRegistrarFrutas extends AppCompatActivity {
 
@@ -38,6 +40,7 @@ public class MainRegistrarFrutas extends AppCompatActivity {
     private String frutaVerduraSeleccionada;
     private AdaptadorSpinnerCategoria adaptadorFrutasVerduras;
     private List<FrutaVerdura> listaFrutasVerduras;
+    private List<FrutaVerdura> listaFrutasVerdurasFiltrada;
     private Map<String, Integer> listaIconos;
 
     private RadioGroup rgListGrid;
@@ -48,6 +51,7 @@ public class MainRegistrarFrutas extends AppCompatActivity {
     private ListView listViewFrutasVerduras;
     private GridView gridViewFrutasVerduras;
     private AdaptadorList adaptadorList;
+    private AdaptadorGrid adaptadorGrid;
 
     private FloatingActionButton fabAgregar;
 
@@ -66,10 +70,15 @@ public class MainRegistrarFrutas extends AppCompatActivity {
         listViewFrutasVerduras = (ListView) findViewById(R.id.listViewFrutasVerduras);
         gridViewFrutasVerduras = (GridView) findViewById(R.id.gridViewFrutasVerduras);
         listaFrutasVerduras = new ArrayList<FrutaVerdura>();
+        listaFrutasVerdurasFiltrada = new ArrayList<FrutaVerdura>();
         listaIconos = new HashMap<>();
+        inicializarIconos();
         //Filtrar por categoria con streams y mandar así al adaptador
         //Crear una función que detecte el cambio de categoría y notificar al adaptador
-        //adaptadorList = new AdaptadorList(this, R.layout.registrar_frutas_list_item, listaFrutasVerduras.stream().filter(frutaVerdura -> frutaVerdura.getCategoria() ))
+        adaptadorList = new AdaptadorList(this, R.layout.registrar_frutas_list_item, listaFrutasVerdurasFiltrada);
+        adaptadorGrid = new AdaptadorGrid(this, R.layout.registrar_frutas_grid_item, listaFrutasVerdurasFiltrada);
+        listViewFrutasVerduras.setAdapter(adaptadorList);
+        gridViewFrutasVerduras.setAdapter(adaptadorGrid);
 
         //Boton agregar
         fabAgregar = (FloatingActionButton) findViewById(R.id.fabAgregar);
@@ -119,7 +128,6 @@ public class MainRegistrarFrutas extends AppCompatActivity {
         AdaptadorSpinnerCategoria adaptadorCategorias = new AdaptadorSpinnerCategoria(this, R.layout.frutas_spinner_item, this.categorias);
         spCategoria.setAdapter(adaptadorCategorias);
 
-
         spCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -131,12 +139,14 @@ public class MainRegistrarFrutas extends AppCompatActivity {
                     adaptadorFrutasVerduras = new AdaptadorSpinnerCategoria(MainRegistrarFrutas.this, R.layout.frutas_spinner_item, verduras);
                     spListaCategoria.setAdapter(adaptadorFrutasVerduras);
                 }
+                actualizarListaFiltrada();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+
         });
         
         spListaCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -155,14 +165,17 @@ public class MainRegistrarFrutas extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(comprobarFrutaVerdura()){
-
+                    //Avisamos que ya agregamos otra fruta o verdura
                     Toast.makeText(MainRegistrarFrutas.this, "Inserción realizada con éxito", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MainRegistrarFrutas.this, "Ese elemento ya se registro", Toast.LENGTH_SHORT).show();
                 }
             }
 
             private boolean comprobarFrutaVerdura(){
                 for (FrutaVerdura frutaVerdura: listaFrutasVerduras) {
                     if(categoriaSeleccionada.equals(frutaVerdura.getCategoria()) && frutaVerduraSeleccionada.equals(frutaVerdura.getNombreFrutaVerdura())){
+                        //Si ya existe
                         return false;
                     }
                 }
@@ -174,6 +187,9 @@ public class MainRegistrarFrutas extends AppCompatActivity {
                 frutaVerdura.setCategoria(categoriaSeleccionada);
                 frutaVerdura.setNombreFrutaVerdura(frutaVerduraSeleccionada);
                 frutaVerdura.setIcono(listaIconos.get(frutaVerduraSeleccionada));
+                listaFrutasVerduras.add(frutaVerdura);
+
+                actualizarListaFiltrada();
             }
         });
 
@@ -213,7 +229,46 @@ public class MainRegistrarFrutas extends AppCompatActivity {
     }
 
     private void inicializarIconos(){
-        listaIconos.put("Arándano", R.mipmap.ic_arandano);
+        //Frutas
+        listaIconos.put("Arándano", R.mipmap.ic_arandano_round);
+        listaIconos.put("Cereza", R.mipmap.ic_cereza_round);
+        listaIconos.put("Fresa", R.mipmap.ic_fresa_round);
+        listaIconos.put("Kiwi", R.mipmap.ic_kiwi_round);
+        listaIconos.put("Limón", R.mipmap.ic_limon_round);
+        listaIconos.put("Manzana", R.mipmap.ic_manzana_round);
+        listaIconos.put("Aguacate", R.mipmap.ic_aguacate_round);
+        listaIconos.put("Pera", R.mipmap.ic_pera_round);
+        listaIconos.put("Piña", R.mipmap.ic_pina_round);
+        listaIconos.put("Plátanos", R.mipmap.ic_platanos_round);
+        listaIconos.put("Naranja", R.mipmap.ic_naranja_round);
+        listaIconos.put("Sandía", R.mipmap.ic_sandia_round);
+        listaIconos.put("Uvas", R.mipmap.ic_uvas_round);
+
+        //Verduras
+        listaIconos.put("Brócoli", R.mipmap.ic_brocoli_round);
+        listaIconos.put("Calabaza", R.mipmap.ic_calabaza_round);
+        listaIconos.put("Cebolla", R.mipmap.ic_cebolla_round);
+        listaIconos.put("Maíz", R.mipmap.ic_maiz_round);
+        listaIconos.put("Papa", R.mipmap.ic_papa_round);
+        listaIconos.put("Pimiento", R.mipmap.ic_pimiento_round);
+        listaIconos.put("Repollo", R.mipmap.ic_repollo_round);
+        listaIconos.put("Tomate", R.mipmap.ic_tomate_round);
+        listaIconos.put("Zanahoria", R.mipmap.ic_zanahoria_round);
+    }
+
+    private void actualizarListaFiltrada(){
+        listaFrutasVerdurasFiltrada =(List<FrutaVerdura>) listaFrutasVerduras.stream()
+                .filter(
+                        frutaVerdura -> frutaVerdura.getCategoria().equals(categoriaSeleccionada)
+                ).collect(Collectors.toList());
+
+        adaptadorList.clear();
+        adaptadorList.addAll(listaFrutasVerdurasFiltrada);
+        adaptadorList.notifyDataSetChanged();
+
+        adaptadorGrid.clear();
+        adaptadorGrid.addAll(listaFrutasVerdurasFiltrada);
+        adaptadorGrid.notifyDataSetChanged();
     }
 
     /* Trabajar el atributo height, width y weight, gracias chatGpt XD
