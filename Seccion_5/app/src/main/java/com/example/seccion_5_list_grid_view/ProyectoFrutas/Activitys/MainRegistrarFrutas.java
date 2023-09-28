@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -305,7 +306,7 @@ public class MainRegistrarFrutas extends AppCompatActivity {
 
             }while(true);
         }else{
-            Toast.makeText(this, "No hay más frutas o verduras", )
+            Toast.makeText(this, "No hay más frutas o verduras", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -319,7 +320,29 @@ public class MainRegistrarFrutas extends AppCompatActivity {
         return new FrutaVerdura(nombre, categoria, listaIconos.get(nombre));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu_fruta_random, menu);
+        //super.onCreateOptionsMenu(menu)
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.abmAgregarFrutaVerduraRandom:
+                //insercionAleatoria()
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+
+    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
