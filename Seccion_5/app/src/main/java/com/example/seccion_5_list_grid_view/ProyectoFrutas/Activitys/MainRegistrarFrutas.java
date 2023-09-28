@@ -1,10 +1,14 @@
 package com.example.seccion_5_list_grid_view.ProyectoFrutas.Activitys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class MainRegistrarFrutas extends AppCompatActivity {
@@ -193,6 +198,9 @@ public class MainRegistrarFrutas extends AppCompatActivity {
             }
         });
 
+
+        registerForContextMenu(listViewFrutasVerduras);
+        registerForContextMenu(gridViewFrutasVerduras);
     }
 
     private void llenarArreglosSpinner(){
@@ -269,6 +277,76 @@ public class MainRegistrarFrutas extends AppCompatActivity {
         adaptadorGrid.clear();
         adaptadorGrid.addAll(listaFrutasVerdurasFiltrada);
         adaptadorGrid.notifyDataSetChanged();
+    }
+
+    private void insercionAleatoria(){
+        if(listaFrutasVerduras.size() != (frutas.length + verduras.length)){
+            do{
+                FrutaVerdura frutaVerdura;
+                Random random = new Random();
+                int categoria = random.nextInt(2);// Genera 0 o 1
+
+                String[] arreglo = (categoria == 0) ? frutas : (categoria == 1) ? verduras : null;
+
+                if(arreglo != null){
+                    int posicion = random.nextInt(arreglo.length-1);
+                    String nombreFrutaVerdura = arreglo[posicion];
+
+                    frutaVerdura = asignarFruta(nombreFrutaVerdura, categoria == 0 ? "Frutas": "Verduras");
+                    if(frutaVerdura != null){
+                        //Cuando asigne una fruta valida
+                        listaFrutasVerduras.add(frutaVerdura);
+                        //Hago que la lista actual detecte el cambio si corresponde
+                        actualizarListaFiltrada();
+                        //Rompe el do while
+                        break;
+                    }
+                }
+
+            }while(true);
+        }else{
+            Toast.makeText(this, "No hay más frutas o verduras", )
+        }
+
+    }
+
+    private FrutaVerdura asignarFruta(String nombre, String categoria){
+        for(FrutaVerdura frutaVerdura : listaFrutasVerduras){
+            if(frutaVerdura.getNombreFrutaVerdura().equals(nombre)){
+                return null;
+            }
+        }
+        return new FrutaVerdura(nombre, categoria, listaIconos.get(nombre));
+    }
+
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getMenuInflater();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        menu.setHeaderTitle(this.listaFrutasVerdurasFiltrada.get(info.position).getNombreFrutaVerdura());
+
+        inflater.inflate(R.menu.context_menu_frutas_verduras, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch(item.getItemId()){
+            case R.id.eliminarFrutaVerdura:
+                FrutaVerdura frutaVerdura = listaFrutasVerdurasFiltrada.get(info.position);
+                listaFrutasVerduras.remove(frutaVerdura);
+                actualizarListaFiltrada();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+
     }
 
     /* Trabajar el atributo height, width y weight, gracias chatGpt XD
