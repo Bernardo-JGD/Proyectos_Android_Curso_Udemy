@@ -2,5 +2,19 @@
     <string name="app_name">Card y Recycler View</string>
 
     <string name="IrRecyclerView">RecyclerView</string>
+    <string name="IrCardView">CardView</string>
+    <string name="IrComandantes" >Comandantes</string>
+
+    <string name="tvPruebaCard">Probando cardview</string>
+
+    <!--Spinner comandantes-->
+    <string name="textViewFaccionComandanteItem" >Faccion/Comandante</string>
+    <string name="textViewFaccion" >Facción</string>
+    <string name="textViewComandante" >Comandante</string>
+
+    <!--CardView-->
+    <string name="textViewNombreComandante" >Nombre Comandante</string>
+    <string name="textViewFraseComandante" >Frase Comandante</string>
+    <string name="textViewDescripcionComandante" >Zeratul es miembro de los templarios tétricos, un grupo de guerreros psiónicos cuyos antepasados ​​fueron exiliados de Aiur, el planeta natal de los protoss, hace más de mil años. Los templarios tétricos se negaron a unirse al Khala, la mente común que conecta a todos los protoss, para vivir como seres independientes. Como líder de los templarios tétricos, Zeratul ostenta el rango de prelado y ha resultado crucial para asegurar la supervivencia de los protoss desde los inicios de la amenaza zerg.</string>
 
 </resources>
