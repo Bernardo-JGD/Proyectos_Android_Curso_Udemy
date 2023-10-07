@@ -44,6 +44,7 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
     private void llenarListaImagenes(){
         listaImagenes.put("Zeratul", R.mipmap.ic_zeratul);
         listaImagenes.put("Abathur", R.mipmap.ic_abathur);
+        
         listaImagenes.put("Alarak", R.mipmap.ic_alarak);
         listaImagenes.put("Dehaka", R.mipmap.ic_dehaka);
         listaImagenes.put("Fénix", R.mipmap.ic_fenix);
