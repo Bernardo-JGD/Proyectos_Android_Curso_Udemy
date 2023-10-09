@@ -12,6 +12,8 @@
     <string name="textViewFaccion" >Facción</string>
     <string name="textViewComandante" >Comandante</string>
 
+    <string name="addComandante" >Agregar Comandante</string>
+
     <!--CardView-->
     <string name="textViewNombreComandante" >Nombre Comandante</string>
     <string name="textViewFraseComandante" >Frase Comandante</string>

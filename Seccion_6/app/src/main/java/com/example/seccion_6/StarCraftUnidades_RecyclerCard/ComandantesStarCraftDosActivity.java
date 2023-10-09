@@ -3,6 +3,7 @@ package com.example.seccion_6.StarCraftUnidades_RecyclerCard;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Spinner;
 //Cuando Creo un paquete que incluya clase y activity dentro
 //hacer este import de abajo, porque no detecta el layout
 import com.example.seccion_6.R;
@@ -20,12 +21,21 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
     private List<Comandante> listaComandantes;
     private List<Comandante> listaComandantesRecycler;
 
+    private AdaptadorSpinnerFaccionComandante adaptadorFacciones;
+    private AdaptadorSpinnerFaccionComandante adaptadorComandantes;
+    private Spinner spinnerFaccion;
+    private Spinner spinnerComandante;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comandantes_star_craft_dos);
 
         getSupportActionBar().setTitle("Comandantes SC2");
+
+        spinnerFaccion = (Spinner) findViewById(R.id.spinnerFaccion);
+        spinnerComandante = (Spinner) findViewById(R.id.spinnerComandante);
 
         listaImagenes = new HashMap<>();
         llenarListaImagenes();
@@ -36,15 +46,25 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
         listaDescripcion = new HashMap<>();
         llenarListaDescripcion();
 
+        String[] facciones = {"Terran", "Protos", "Zerg"};
+
+        adaptadorFacciones = new AdaptadorSpinnerFaccionComandante(this, R.layout.spinner_faccion_comandante_item, facciones);
+        spinnerFaccion.setAdapter(adaptadorFacciones);
+
+        //Obtengo la lista de comandantes del hash de listaImagenes
+        String[] comandantes = listaImagenes.keySet().stream().toArray(String[]::new);
+        //Esto es de prueba, porque se debe de llenar según la raza seleccionada. Por ahora si se llena
+        adaptadorComandantes = new AdaptadorSpinnerFaccionComandante(this, R.layout.spinner_faccion_comandante_item, comandantes);
+        spinnerComandante.setAdapter(adaptadorComandantes);
 
         listaComandantes = new ArrayList<>();
+        llenarLstaComandantesBase();
 
     }
 
     private void llenarListaImagenes(){
         listaImagenes.put("Zeratul", R.mipmap.ic_zeratul);
         listaImagenes.put("Abathur", R.mipmap.ic_abathur);
-        
         listaImagenes.put("Alarak", R.mipmap.ic_alarak);
         listaImagenes.put("Dehaka", R.mipmap.ic_dehaka);
         listaImagenes.put("Fénix", R.mipmap.ic_fenix);
@@ -96,8 +116,9 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
         listaComandantes.add(new Comandante("Stetmann", "Terran", listaFrases.get("Stetmann"), listaDescripcion.get("Stetmann"), listaImagenes.get("Stetmann")));
         listaComandantes.add(new Comandante("Stukov", "Zerg", listaFrases.get("Stukov"), listaDescripcion.get("Stukov"), listaImagenes.get("Stukov")));
         listaComandantes.add(new Comandante("Tychus", "Terran", listaFrases.get("Tychus"), listaDescripcion.get("Tychus"), listaImagenes.get("Tychus")));
-
     }
+
+
 
 
 
