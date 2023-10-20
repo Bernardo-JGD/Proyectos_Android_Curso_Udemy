@@ -1,9 +1,16 @@
 package com.example.seccion_6.StarCraftUnidades_RecyclerCard;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 //Cuando Creo un paquete que incluya clase y activity dentro
 //hacer este import de abajo, porque no detecta el layout
 import com.example.seccion_6.R;
@@ -12,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ComandantesStarCraftDosActivity extends AppCompatActivity {
 
@@ -20,12 +28,19 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
     private Map<String, String> listaDescripcion;
     private List<Comandante> listaComandantes;
     private List<Comandante> listaComandantesRecycler;
+    private List<Comandante> listaComandantesRecyclerFiltrada;
 
-    private AdaptadorSpinnerFaccionComandante adaptadorFacciones;
-    private AdaptadorSpinnerFaccionComandante adaptadorComandantes;
+    private AdaptadorSpinnerFaccionComandante adaptadorSpinnerFacciones;
+    private AdaptadorSpinnerFaccionComandante adaptadorSpinnerComandantes;
     private Spinner spinnerFaccion;
     private Spinner spinnerComandante;
+    private Button btnAgregarComandante;
+    private RecyclerView recyclerViewComandantes;
+    private RecyclerView.Adapter adapterRecyclerViewComandantes;
+    private RecyclerView.LayoutManager layoutManager;
 
+    private String faccionSeleccionada;
+    private String comandanteSeleccionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +51,9 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
 
         spinnerFaccion = (Spinner) findViewById(R.id.spinnerFaccion);
         spinnerComandante = (Spinner) findViewById(R.id.spinnerComandante);
+        btnAgregarComandante = (Button) findViewById(R.id.btnAgregarComandante);
+        recyclerViewComandantes = (RecyclerView) findViewById(R.id.recyclerViewComandantes);
+        layoutManager = new LinearLayoutManager(this);
 
         listaImagenes = new HashMap<>();
         llenarListaImagenes();
@@ -48,17 +66,116 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
 
         String[] facciones = {"Terran", "Protos", "Zerg"};
 
-        adaptadorFacciones = new AdaptadorSpinnerFaccionComandante(this, R.layout.spinner_faccion_comandante_item, facciones);
-        spinnerFaccion.setAdapter(adaptadorFacciones);
-
-        //Obtengo la lista de comandantes del hash de listaImagenes
-        String[] comandantes = listaImagenes.keySet().stream().toArray(String[]::new);
-        //Esto es de prueba, porque se debe de llenar según la raza seleccionada. Por ahora si se llena
-        adaptadorComandantes = new AdaptadorSpinnerFaccionComandante(this, R.layout.spinner_faccion_comandante_item, comandantes);
-        spinnerComandante.setAdapter(adaptadorComandantes);
+        adaptadorSpinnerFacciones = new AdaptadorSpinnerFaccionComandante(this, R.layout.spinner_faccion_comandante_item, facciones);
+        spinnerFaccion.setAdapter(adaptadorSpinnerFacciones);
 
         listaComandantes = new ArrayList<>();
         llenarLstaComandantesBase();
+        listaComandantesRecycler = new ArrayList<>();
+        listaComandantesRecyclerFiltrada = new ArrayList<>();
+
+        spinnerFaccion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                faccionSeleccionada = parent.getItemAtPosition(position).toString();
+
+                String[] comandantesFiltrados = listaComandantes.stream()
+                        .filter(comandante -> comandante.getFaccion().equals(faccionSeleccionada))
+                        .map(Comandante::getNombre)
+                        .toArray(String[]::new);
+
+                adaptadorSpinnerComandantes = new AdaptadorSpinnerFaccionComandante(ComandantesStarCraftDosActivity.this, R.layout.spinner_faccion_comandante_item, comandantesFiltrados);
+                spinnerComandante.setAdapter(adaptadorSpinnerComandantes);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerComandante.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                comandanteSeleccionado = parent.getItemAtPosition(position).toString();
+                actualizarListaFiltrada();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        adapterRecyclerViewComandantes = new RecyclerViewComandantesAdapter(listaComandantesRecyclerFiltrada, R.layout.comandante_recycler_view_item, new RecyclerViewComandantesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Comandante comandante, int posicion) {
+                Toast.makeText(ComandantesStarCraftDosActivity.this, comandante.getNombre(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnAgregarComandante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+                //Opcion 1 para insertar (Propia, inserta al final)
+                ////Aquí modifico primero el listaComandantesRecycler y luego actualizo la lista filtrada
+                //Si no existe se puede agregar a la lista
+                if( !ExistenciaComandante() ){
+                    Comandante comandanteNuevo = encontrarComandante();
+                    if(comandanteNuevo != null){
+                        listaComandantesRecycler.add(comandanteNuevo);
+                        actualizarListaFiltrada();
+                    }
+                }
+
+
+                /*
+                //Opcion 2 para insertar
+                //Aquí modifico directamente la listaFiltrada
+                if(!ExistenciaComandante()){
+                    Comandante comandanteNuevo = encontrarComandante();
+                    int posicion = 0;
+                    if(comandanteNuevo != null){
+                        listaComandantesRecyclerFiltrada.add(posicion, comandanteNuevo);
+                        adapterRecyclerViewComandantes.notifyItemInserted(posicion);
+                        layoutManager.scrollToPosition(posicion);
+                    }
+                }
+                */
+
+            }
+
+            public boolean ExistenciaComandante(){
+                for(Comandante comandante : listaComandantesRecycler){
+                    if(comandante.getNombre().equals(comandanteSeleccionado)){
+                        //Si existe
+                        return true;
+                    }
+                }
+                //Si no existe
+                return false;
+            }
+
+            public Comandante encontrarComandante(){
+                for(Comandante comandante : listaComandantes){
+                    if(comandante.getNombre().equals(comandanteSeleccionado)){
+                        return comandante;
+                    }
+                }
+                return null;
+            }
+
+        });
+
+        recyclerViewComandantes.setHasFixedSize(true);
+        recyclerViewComandantes.setItemAnimator(new DefaultItemAnimator());
+
+        recyclerViewComandantes.setLayoutManager(layoutManager);
+        recyclerViewComandantes.setAdapter(adapterRecyclerViewComandantes);
 
     }
 
@@ -104,7 +221,7 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
         listaDescripcion.put("Tychus", "En este hipotético escenario podrás liderar a tu ejército como Tychus, un comandante que puede personalizar sus armas y reclutar a un equipo de forajidos formado por unidades heroicas en lugar de tradicionales. La nostalgia de sus años mozos ha llevado a Tychus a reunir a su vieja banda, los Diablos del Cielo, constituida por ocho de sus mejores colegas. Solo puedes reclutar a cuatro a la vez, así que elígelos bien para cada tarea.");
     }
 
-    public void llenarLstaComandantesBase(){
+    private void llenarLstaComandantesBase(){
         listaComandantes.add(new Comandante("Zeratul", "Protos", listaFrases.get("Zeratul"), listaDescripcion.get("Zeratul"), listaImagenes.get("Zeratul")));
         listaComandantes.add(new Comandante("Abathur", "Zerg", listaFrases.get("Abathur"), listaDescripcion.get("Abathur"), listaImagenes.get("Abathur")));
         listaComandantes.add(new Comandante("Alarak", "Protos", listaFrases.get("Alarak"), listaDescripcion.get("Alarak"), listaImagenes.get("Alarak")));
@@ -118,8 +235,14 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
         listaComandantes.add(new Comandante("Tychus", "Terran", listaFrases.get("Tychus"), listaDescripcion.get("Tychus"), listaImagenes.get("Tychus")));
     }
 
+    private void actualizarListaFiltrada(){
+        listaComandantesRecyclerFiltrada = (List<Comandante>) listaComandantesRecycler.stream()
+                .filter(
+                        comandante -> comandante.getFaccion().equals(faccionSeleccionada)
+                ).collect(Collectors.toList());
 
-
-
+        ((RecyclerViewComandantesAdapter)adapterRecyclerViewComandantes).limpiarListaComandantes();
+        ((RecyclerViewComandantesAdapter)adapterRecyclerViewComandantes).actualizarComandantes(listaComandantesRecyclerFiltrada);
+    }
 
 }

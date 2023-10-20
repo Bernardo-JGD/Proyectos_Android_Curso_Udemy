@@ -20,6 +20,7 @@ public class RecyclerViewComandantesAdapter extends RecyclerView.Adapter<Recycle
     private List<Comandante> listaComandantes;
     private int layout;
     private OnItemClickListener clickListener;
+    private int expandedPosition = -1;
 
     public RecyclerViewComandantesAdapter(List<Comandante> listaComandantes, int layout, OnItemClickListener clickListener){
         this.listaComandantes = listaComandantes;
@@ -40,20 +41,40 @@ public class RecyclerViewComandantesAdapter extends RecyclerView.Adapter<Recycle
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(listaComandantes.get(position), clickListener);
+
+        if(holder.textViewDescripcionComandante.getLineCount() > 12){
+            holder.textViewMostrarMasMenos.setVisibility(View.VISIBLE);
+        }else{
+            holder.textViewMostrarMasMenos.setVisibility(View.GONE);
+        }
+
+        holder.textViewMostrarMasMenos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.textViewDescripcionComandante.getMaxLines() == 12){
+                    holder.textViewDescripcionComandante.setMaxLines(Integer.MAX_VALUE);
+                    holder.textViewMostrarMasMenos.setText(R.string.textViewMostrarMenos);
+                }else{
+                    holder.textViewDescripcionComandante.setMaxLines(3);
+                    holder.textViewMostrarMasMenos.setText(R.string.textViewMostrarMas);
+                }
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listaComandantes.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView textViewNombreComandante;
         public TextView textViewFraseComandante;
         public TextView textViewDescripcionComandante;
+        public TextView textViewMostrarMasMenos;
         public ImageView imageViewComandante;
         public CardView cardViewComandante;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +82,7 @@ public class RecyclerViewComandantesAdapter extends RecyclerView.Adapter<Recycle
             this.textViewFraseComandante = itemView.findViewById(R.id.textViewFraseComandante);
             this.textViewDescripcionComandante = itemView.findViewById(R.id.textViewDescripcionComandante);
             this.imageViewComandante = itemView.findViewById(R.id.imageViewComandante);
+            this.textViewMostrarMasMenos = itemView.findViewById(R.id.textViewMostrarMasMenos);
         }
 
         public void bind(final Comandante comandante, final OnItemClickListener clickListener){
@@ -91,6 +113,7 @@ public class RecyclerViewComandantesAdapter extends RecyclerView.Adapter<Recycle
 
             }
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,6 +123,16 @@ public class RecyclerViewComandantesAdapter extends RecyclerView.Adapter<Recycle
 
         }
 
+    }
+
+    public void limpiarListaComandantes(){
+        this.listaComandantes.clear();
+        notifyDataSetChanged();
+    }
+
+    public void actualizarComandantes(List<Comandante> comandantesNuevos){
+        this.listaComandantes = comandantesNuevos;
+        notifyDataSetChanged();
     }
 
     public interface OnItemClickListener{

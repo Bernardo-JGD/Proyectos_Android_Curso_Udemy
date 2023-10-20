@@ -7,6 +7,7 @@
     tools:context=".StarCraftUnidades_RecyclerCard.ComandantesStarCraftDosActivity">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="234dp"
         android:layout_height="160dp"
         android:layout_marginTop="16dp"
@@ -48,7 +49,7 @@
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnAgregarComandante"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:minHeight="48dp"
@@ -56,4 +57,14 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewComandantes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
