@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Seccion_6">
         <activity
+            android:name=".EjercicioSeccion.Activity.FrutaVerduraActivity"
+            android:exported="false" />
+        <activity
             android:name=".StarCraftUnidades_RecyclerCard.ComandantesStarCraftDosActivity"
             android:exported="false" />
         <activity

@@ -1,11 +1,15 @@
 package com.example.seccion_6.StarCraftUnidades_RecyclerCard;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -108,18 +112,19 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
             }
         });
 
-        adapterRecyclerViewComandantes = new RecyclerViewComandantesAdapter(listaComandantesRecyclerFiltrada, R.layout.comandante_recycler_view_item, new RecyclerViewComandantesAdapter.OnItemClickListener() {
+        // Observa como pasamos el activity, con this. Podríamos declarar
+        // Activity o Context en el constructor y funcionaría pasando el mismo valor, this
+        adapterRecyclerViewComandantes = new RecyclerViewComandantesAdapter(listaComandantesRecyclerFiltrada, R.layout.comandante_recycler_view_item, this, new RecyclerViewComandantesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Comandante comandante, int posicion) {
-                Toast.makeText(ComandantesStarCraftDosActivity.this, comandante.getNombre(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(ComandantesStarCraftDosActivity.this, comandante.getNombre(), Toast.LENGTH_LONG).show();
+                //adapterRecyclerViewComandantes.notifyItemChanged(posicion);
             }
         });
 
         btnAgregarComandante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
 
                 //Opcion 1 para insertar (Propia, inserta al final)
                 ////Aquí modifico primero el listaComandantesRecycler y luego actualizo la lista filtrada
@@ -131,7 +136,6 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
                         actualizarListaFiltrada();
                     }
                 }
-
 
                 /*
                 //Opcion 2 para insertar
@@ -176,6 +180,8 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
 
         recyclerViewComandantes.setLayoutManager(layoutManager);
         recyclerViewComandantes.setAdapter(adapterRecyclerViewComandantes);
+
+
 
     }
 
@@ -244,5 +250,6 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
         ((RecyclerViewComandantesAdapter)adapterRecyclerViewComandantes).limpiarListaComandantes();
         ((RecyclerViewComandantesAdapter)adapterRecyclerViewComandantes).actualizarComandantes(listaComandantesRecyclerFiltrada);
     }
+
 
 }
