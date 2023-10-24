@@ -22,4 +22,15 @@
     <string name="textViewMostrarMas">Mostrar más</string>
     <string name="textViewMostrarMenos">Mostrar menos</string>
 
+
+    <!--Ejercicio Seccion-->
+
+    <string name="tvCantidadTotal" >Cantidad Frutas: </string>
+    <string name="tvCantidadTotalValorDefecto" >9999</string>
+    <string name="textViewTotalPrecio" >Total: $</string>
+    <string name="textViewTotalPrecioValorDefecto" >9999</string>
+
+    <string name="btnIrAgregarFruta" >Agregar Fruta</string>
+    <string name="btnIrGenerarTicket" >Generar Ticket</string>
+
 </resources>
