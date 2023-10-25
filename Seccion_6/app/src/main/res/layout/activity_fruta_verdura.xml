@@ -39,23 +39,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewTotalPrecio"
+            android:id="@+id/tvTotalPrecio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:gravity="end"
-            android:text="@string/textViewTotalPrecio"
+            android:text="@string/tvTotalPrecio"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewTotalPrecioValor"
+            android:id="@+id/tvTotalPrecioValor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:paddingLeft="5dp"
-            android:text="@string/textViewTotalPrecioValorDefecto"
+            android:text="@string/tvTotalPrecioValorDefecto"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"

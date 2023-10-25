@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3"
+        app:srcCompat="@mipmap/ic_arandano_foreground" />
+
+    <LinearLayout
+        android:layout_width="0"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/tvNombreFrutaVerdura"
+                android:layout_width="0"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="@string/tvNombreFrutaVerduraDefecto"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvPrecio"
+                android:layout_width="0"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:gravity="end"
+                android:text="@string/tvPrecio"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvPrecioValor"
+                android:layout_width="0"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:paddingLeft="10dp"
+                android:text="@string/tvPrecioValorDefecto"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0"
+            android:orientation="horizontal"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/tvCantidad"
+                android:layout_width="0"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="end"
+                android:text="@string/tvCantidad"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvCantidadValor"
+                android:layout_width="0"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:paddingLeft="10dp"
+                android:text="@string/tvCantidadValorDefecto"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#FFACA8"
+                app:srcCompat="@drawable/ic_baseline_exposure_neg_1_24" />
+
+            <TextView
+                android:id="@+id/tvCantidadTomada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:text="@string/tvCantidadTomada" />
+
+            <TextView
+                android:id="@+id/tvCantidadTomadaValor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="@string/tvCantidadTomadaValorDefecto"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#7FD400"
+                app:srcCompat="@drawable/ic_baseline_exposure_plus_1_24" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

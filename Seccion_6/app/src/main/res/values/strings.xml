@@ -27,10 +27,21 @@
 
     <string name="tvCantidadTotal" >Cantidad Frutas: </string>
     <string name="tvCantidadTotalValorDefecto" >9999</string>
-    <string name="textViewTotalPrecio" >Total: $</string>
-    <string name="textViewTotalPrecioValorDefecto" >9999</string>
+    <string name="tvTotalPrecio" >Total: $</string>
+    <string name="tvTotalPrecioValorDefecto" >9999</string>
 
     <string name="btnIrAgregarFruta" >Agregar Fruta</string>
     <string name="btnIrGenerarTicket" >Generar Ticket</string>
+
+    <string name="tvNombreFrutaVerduraDefecto" >Arándano</string>
+    <string name="tvPrecio" >Precio: $</string>
+    <string name="tvPrecioValorDefecto" >9999</string>
+
+    <string name="tvCantidad" >Cantidad: </string>
+    <string name="tvCantidadValorDefecto" >9999</string>
+
+    <string name="tvCantidadTomada" >Lleva:</string>
+    <string name="tvCantidadTomadaValorDefecto" >11</string>
+
 
 </resources>
