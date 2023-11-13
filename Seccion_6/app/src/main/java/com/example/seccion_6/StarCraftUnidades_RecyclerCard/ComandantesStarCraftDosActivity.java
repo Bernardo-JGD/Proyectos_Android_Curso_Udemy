@@ -181,8 +181,6 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
         recyclerViewComandantes.setLayoutManager(layoutManager);
         recyclerViewComandantes.setAdapter(adapterRecyclerViewComandantes);
 
-
-
     }
 
     private void llenarListaImagenes(){

@@ -4,6 +4,7 @@
     <string name="IrRecyclerView">RecyclerView</string>
     <string name="IrCardView">CardView</string>
     <string name="IrComandantes">Comandantes</string>
+    <string name="IrFrutasVerduras">Frutas Verduras</string>
 
     <string name="tvPruebaCard">Probando cardview</string>
 
@@ -25,23 +26,65 @@
 
     <!--Ejercicio Seccion-->
 
-    <string name="tvCantidadTotal" >Cantidad Frutas: </string>
-    <string name="tvCantidadTotalValorDefecto" >9999</string>
-    <string name="tvTotalPrecio" >Total: $</string>
-    <string name="tvTotalPrecioValorDefecto" >9999</string>
+    <string name="tvCantidadTotal">Cantidad Frutas: </string>
+    <string name="tvCantidadTotalValorDefecto">9999</string>
+    <string name="tvTotalPrecio">Total: $</string>
+    <string name="tvTotalPrecioValorDefecto">9999</string>
 
-    <string name="btnIrAgregarFruta" >Agregar Fruta</string>
-    <string name="btnIrGenerarTicket" >Generar Ticket</string>
+    <string name="btnIrAgregarFruta">Agregar Fruta</string>
+    <string name="btnIrGenerarTicket">Generar Ticket</string>
 
-    <string name="tvNombreFrutaVerduraDefecto" >Arándano</string>
-    <string name="tvPrecio" >Precio: $</string>
-    <string name="tvPrecioValorDefecto" >9999</string>
+    <string name="tvNombreFrutaVerduraDefecto">Arándano</string>
+    <string name="tvPrecio">Precio: $</string>
+    <string name="tvPrecioValorDefecto">9999</string>
 
-    <string name="tvCantidad" >Cantidad: </string>
-    <string name="tvCantidadValorDefecto" >9999</string>
+    <string name="tvCantidad">Cantidad: </string>
+    <string name="tvCantidadValorDefecto">9999</string>
 
-    <string name="tvCantidadTomada" >Lleva:</string>
-    <string name="tvCantidadTomadaValorDefecto" >11</string>
+    <string name="tvCantidadTomada">Lleva:</string>
+    <string name="tvCantidadTomadaValorDefecto">11</string>
+
+    <!--Crear Fruta/Verdura -->
+    <string name="tvNombreFrutaVerduraSpinner" >Nombre:</string>
+    <string name="tvCategoriaFrutaVerduraSpinner" >Categoria:</string>
+    <string name="btnCrearFrutaVerdura" >Crear</string>
+    <string name="edCantidadFrutaVerduraAsignarHint" >Cantidad</string>
+    <string name="edPrecioFrutaVerduraAsignarHint" >Precio</string>
+
+    <string name="tvSpinnerItem" >Categoria/FV</string>
+
+    <string-array name="categoriasFrutasVerduras" >
+        <item>Frutas</item>
+        <item>Verduras</item>
+    </string-array>
+
+    <string-array name="stringArrayFrutas">
+        <item>Arándano</item>
+        <item>Aguacate</item>
+        <item>Cereza</item>
+        <item>Fresa</item>
+        <item>Kiwi</item>
+        <item>Limón</item>
+        <item>Manzana</item>
+        <item>Pera</item>
+        <item>Piña</item>
+        <item>Plátano</item>
+        <item>Naranja</item>
+        <item>Sandía</item>
+        <item>Uva</item>
+    </string-array>
+
+    <string-array name="stringArrayVerduras">
+        <item>Brócoli</item>
+        <item>Calabaza</item>
+        <item>Cebolla</item>
+        <item>Maíz</item>
+        <item>Papa</item>
+        <item>Pimiento</item>
+        <item>Repollo</item>
+        <item>Tomate</item>
+        <item>Zanahoria</item>
+    </string-array>
 
 
 </resources>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Seccion_7</string>
+    <string name="cadena">Este mensaje &lt;b>contiene una parte&lt;/b> en negritas</string>
+    <string name="add">Texto</string>
+
+    <string name="textViewBoardTitle">Title</string>
+    <string name="textViewBoardNotes">Notes</string>
+    <string name="textViewBoardDate">Date</string>
+
+    <string name="textViewNoteDescription" >Description</string>
+    <string name="textViewNoteCreatedAt" >Date</string>
+
+</resources>
