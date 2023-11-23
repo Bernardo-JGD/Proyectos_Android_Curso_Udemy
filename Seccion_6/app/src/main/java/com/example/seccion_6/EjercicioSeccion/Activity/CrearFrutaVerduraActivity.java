@@ -12,7 +12,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.seccion_6.EjercicioSeccion.Adaptador.AdaptadorSpinnerCrearFV;
-import com.example.seccion_6.EjercicioSeccion.Adaptador.FrutaVerduraAdapter;
 import com.example.seccion_6.EjercicioSeccion.Modelo.FrutaVerdura;
 import com.example.seccion_6.R;
 
@@ -20,7 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CrearFrutaVerdura extends AppCompatActivity {
+public class CrearFrutaVerduraActivity extends AppCompatActivity {
 
     private Spinner spCategoriaFV;
     private Spinner spNombreFV;
@@ -66,10 +65,10 @@ public class CrearFrutaVerdura extends AppCompatActivity {
                 categoríaSeleccionada = parent.getItemAtPosition(position).toString();
                 if(categoríaSeleccionada.equals("Frutas")){
                     listaFrutasVerduras = getResources().getStringArray(R.array.stringArrayFrutas);
-                    adaptadorSpinnerNombres = new AdaptadorSpinnerCrearFV(CrearFrutaVerdura.this, R.layout.spinner_fruta_verdura_item, listaFrutasVerduras);
+                    adaptadorSpinnerNombres = new AdaptadorSpinnerCrearFV(CrearFrutaVerduraActivity.this, R.layout.spinner_fruta_verdura_item, listaFrutasVerduras);
                 }else if(categoríaSeleccionada.equals("Verduras")){
                     listaFrutasVerduras = getResources().getStringArray(R.array.stringArrayVerduras);
-                    adaptadorSpinnerNombres = new AdaptadorSpinnerCrearFV(CrearFrutaVerdura.this, R.layout.spinner_fruta_verdura_item, listaFrutasVerduras);
+                    adaptadorSpinnerNombres = new AdaptadorSpinnerCrearFV(CrearFrutaVerduraActivity.this, R.layout.spinner_fruta_verdura_item, listaFrutasVerduras);
                 }
                 spNombreFV.setAdapter(adaptadorSpinnerNombres);
             }
@@ -114,6 +113,12 @@ public class CrearFrutaVerdura extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private boolean validarCampoCantidad(String cantidad){
         // Verifica si la cadena contiene solo dígitos
         return cantidad.matches("\\d+");
@@ -126,24 +131,18 @@ public class CrearFrutaVerdura extends AppCompatActivity {
     }
 
     private void retornarFrutaVerduraCreada(FrutaVerdura frutaVerdura){
-        Intent intent = new Intent(CrearFrutaVerdura.this, FrutaVerduraActivity.class);
+        Intent intent = new Intent(CrearFrutaVerduraActivity.this, FrutaVerduraActivity.class);
         listaFrutasVerdurasRecyclerView.add(0, frutaVerdura);
         intent.putExtra("listaRecycler", (Serializable) listaFrutasVerdurasRecyclerView);
-        if(listaFrutasVerdurasCompra != null && listaFrutasVerdurasCompra.size() > 0){
-            intent.putExtra("listaCompraActual", (Serializable) listaFrutasVerdurasCompra);
-        }
         startActivity(intent);
     }
 
     private void recibiendoIntent(Intent intent){
         if(intent != null){
             if(intent.hasExtra("listaRecycler")){
-                if(intent.getSerializableExtra("listaRecycler") != null && intent.getSerializableExtra("listaCompraActual") != null){
+                if(intent.getSerializableExtra("listaRecycler") != null){
                     listaFrutasVerdurasRecyclerView = (List<FrutaVerdura>) intent.getSerializableExtra("listaRecycler");
                 }
-            }
-            if(intent.hasExtra("listaCompraActual")){
-                listaFrutasVerdurasCompra = (List<FrutaVerdura>) intent.getSerializableExtra("listaCompraActual");
             }
         }
     }

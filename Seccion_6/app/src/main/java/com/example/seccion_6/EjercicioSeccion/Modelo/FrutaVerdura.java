@@ -79,16 +79,28 @@ public class FrutaVerdura implements Serializable {
         this.cantidad = this.cantidad - 1;
     }
 
-    public void restarCantidad(int cantidadRestar){
-        this.cantidad = this.cantidad - cantidadRestar;
-    }
-
     public void incrementarCantidad(){
         this.cantidad = this.cantidad + 1;
     }
 
+    public void incrementarCantidadTomada(){
+        this.cantidadTomada = this.cantidadTomada + 1;
+    }
+
+    public void restarCantidadTomada(){
+        this.cantidadTomada = this.cantidadTomada - 1;
+    }
+
     public boolean existe(){
         return getCantidad() > 0;
+    }
+
+    public boolean existeCantidadTomada(){
+        return getCantidadTomada() > 0;
+    }
+
+    public int totalPagar(){
+        return this.cantidadTomada * this.precio;
     }
 
 }

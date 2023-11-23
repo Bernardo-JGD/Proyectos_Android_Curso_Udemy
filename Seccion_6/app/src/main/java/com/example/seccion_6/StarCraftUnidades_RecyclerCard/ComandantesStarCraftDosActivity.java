@@ -40,7 +40,7 @@ public class ComandantesStarCraftDosActivity extends AppCompatActivity {
     private Spinner spinnerComandante;
     private Button btnAgregarComandante;
     private RecyclerView recyclerViewComandantes;
-    private RecyclerView.Adapter adapterRecyclerViewComandantes;
+    private RecyclerViewComandantesAdapter adapterRecyclerViewComandantes;
     private RecyclerView.LayoutManager layoutManager;
 
     private String faccionSeleccionada;

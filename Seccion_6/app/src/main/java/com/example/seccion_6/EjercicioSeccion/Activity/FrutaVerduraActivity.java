@@ -22,20 +22,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class FrutaVerduraActivity extends AppCompatActivity {
 
-    private TextView tvCantidadTotalValor;
-    private TextView tvTotalPrecioValor;
+    public static TextView tvCantidadTotalValor;
+    public static TextView tvTotalPrecioValor;
 
     private RecyclerView recyclerViewFrutaVerdura;
     private RecyclerView.LayoutManager layoutManager;
     //Esta va a servir para mantener el recycler lleno, tomando en cuenta que
     //en otra activity podrán asignar una fruta nueva, por eso es static
     private List<FrutaVerdura> listaFrutasVerdurasRecyclerView;
-    //Esta es la que servirá para calcular información referente al ticket.
-    //Cuando incremente o decremente un elemento, ambas listas se verán afectadas según corresponda
-    public static List<FrutaVerdura> listaFrutasVerdurasCompra;
     //TODO: chatgpt me había comentado algo al respecto de acceder a la lista del adaptador
     //List<Fruit> selectedFruitsList = adapter.selectedFruits;
     private FrutaVerduraAdapter adaptadorFrutasVerduras;
@@ -55,7 +53,6 @@ public class FrutaVerduraActivity extends AppCompatActivity {
 
         recyclerViewFrutaVerdura = (RecyclerView) findViewById(R.id.recyclerViewFrutaVerdura);
         listaFrutasVerdurasRecyclerView = new ArrayList<>();
-        listaFrutasVerdurasCompra = new ArrayList<>();
 
         btnIrAgregarFruta = (Button) findViewById(R.id.btnIrAgregarFruta);
         btnIrGenerarTicket = (Button) findViewById(R.id.btnIrGenerarTicket);
@@ -82,41 +79,61 @@ public class FrutaVerduraActivity extends AppCompatActivity {
         btnIrAgregarFruta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FrutaVerduraActivity.this, CrearFrutaVerdura.class);
-
+                Intent intent = new Intent(FrutaVerduraActivity.this, CrearFrutaVerduraActivity.class);
                 intent.putExtra("listaRecycler", (Serializable) listaFrutasVerdurasRecyclerView);
-                intent.putExtra("listaCompraActual", (Serializable) listaFrutasVerdurasCompra);
                 startActivity(intent);
             }
         });
+
+        btnIrGenerarTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Solo filtro para saber si selecciono un producto, pero mando la lista del adaptador al otro activity
+                List<FrutaVerdura> listaCompra =
+                        adaptadorFrutasVerduras.getListaFrutasVerduras()
+                                .stream()
+                                .filter( producto -> producto.getCantidadTomada() > 0)
+                                .collect(Collectors.toList());
+
+                if(validarListaCompra(listaCompra)){
+                    Intent intent = new Intent(FrutaVerduraActivity.this, TicketActivity.class);
+                    intent.putExtra("listaCompra", (Serializable) adaptadorFrutasVerduras.getListaFrutasVerduras());
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(FrutaVerduraActivity.this, "No hay productos seleccionados", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+
 
     }
 
     private void recibirIntent(Intent intent){
         if(intent != null){
-            if(intent != null){
-                if(intent.hasExtra("listaRecycler") /* && intent.hasExtra("listaCompraActual")*/){
-                    if(intent.getSerializableExtra("listaRecycler") != null){
-                        listaFrutasVerdurasRecyclerView = (List<FrutaVerdura>) intent.getSerializableExtra("listaRecycler");
+            if(intent.hasExtra("listaRecycler")){
+                if(intent.getSerializableExtra("listaRecycler") != null){
+                    listaFrutasVerdurasRecyclerView = (List<FrutaVerdura>) intent.getSerializableExtra("listaRecycler");
 
-                        if(listaFrutasVerdurasRecyclerView.size()>0){
-                            asingarImagen();
-                        }
-
-                        if(intent.getSerializableExtra("listaCompraActual") != null){
-                            listaFrutasVerdurasCompra = (List<FrutaVerdura>) intent.getSerializableExtra("listaCompraActual");
-
-                            if(listaFrutasVerdurasCompra.size() > 0){
-
-                            }
-
-                        }
-
+                    if(listaFrutasVerdurasRecyclerView.size()>0){
+                        asingarImagen();
                     }
 
                 }
+
             }
         }
+    }
+
+    private boolean validarListaCompra(List<FrutaVerdura> listaCompra) {
+        if(listaCompra == null){
+            return false;
+        }
+        if(listaCompra.size() == 0){
+            return false;
+        }
+        return true;
     }
 
     private void asingarImagen(){
@@ -167,18 +184,6 @@ public class FrutaVerduraActivity extends AppCompatActivity {
         listaIconos.put("Repollo", R.mipmap.ic_repollo_round);
         listaIconos.put("Tomate", R.mipmap.ic_tomate_round);
         listaIconos.put("Zanahoria", R.mipmap.ic_zanahoria_round);
-    }
-
-    //NOTA: La logica de este metodo solo aplica si no agrego la opción de editar para incrementar la cantidad
-    //ya que si resto cada vez que regreso al activity, le restare a la cantidad actualizada del recycler
-    private void realizarResta(){
-        for(FrutaVerdura frutaVerduraRecycler : listaFrutasVerdurasRecyclerView){
-            for(FrutaVerdura frutaVerduraCompras : listaFrutasVerdurasCompra){
-                if(frutaVerduraCompras.getNombre() == frutaVerduraRecycler.getNombre()){
-                    frutaVerduraRecycler.setCantidadTomada(frutaVerduraCompras.getCantidad());
-                }
-            }
-        }
     }
 
 }

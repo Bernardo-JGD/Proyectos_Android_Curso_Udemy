@@ -45,15 +45,15 @@
     <string name="tvCantidadTomadaValorDefecto">11</string>
 
     <!--Crear Fruta/Verdura -->
-    <string name="tvNombreFrutaVerduraSpinner" >Nombre:</string>
-    <string name="tvCategoriaFrutaVerduraSpinner" >Categoria:</string>
-    <string name="btnCrearFrutaVerdura" >Crear</string>
-    <string name="edCantidadFrutaVerduraAsignarHint" >Cantidad</string>
-    <string name="edPrecioFrutaVerduraAsignarHint" >Precio</string>
+    <string name="tvNombreFrutaVerduraSpinner">Nombre:</string>
+    <string name="tvCategoriaFrutaVerduraSpinner">Categoria:</string>
+    <string name="btnCrearFrutaVerdura">Crear</string>
+    <string name="edCantidadFrutaVerduraAsignarHint">Cantidad</string>
+    <string name="edPrecioFrutaVerduraAsignarHint">Precio</string>
 
-    <string name="tvSpinnerItem" >Categoria/FV</string>
+    <string name="tvSpinnerItem">Categoria/FV</string>
 
-    <string-array name="categoriasFrutasVerduras" >
+    <string-array name="categoriasFrutasVerduras">
         <item>Frutas</item>
         <item>Verduras</item>
     </string-array>
@@ -86,5 +86,18 @@
         <item>Zanahoria</item>
     </string-array>
 
+    <!--Ticket-->
+    <string name="tvProducto" >Producto</string>
+    <string name="tvCantidadComprada" >Cantidad</string>
+    <string name="tvPrecioIndividual" >Precio U</string>
+    <string name="tvTotalIndividual" >Total</string>
+
+    <string name="tvProductoValor" >Producto</string>
+    <string name="tvCantidadProductoValor" >Cantidad</string>
+    <string name="tvPrecioProductoValor" >$$$</string>
+    <string name="tvTotalProductoValor" >$$$</string>
+
+    <string name="tvTotalFinal" >Total $</string>
+    <string name="tvTotalFinalValor" >$$$</string>
 
 </resources>

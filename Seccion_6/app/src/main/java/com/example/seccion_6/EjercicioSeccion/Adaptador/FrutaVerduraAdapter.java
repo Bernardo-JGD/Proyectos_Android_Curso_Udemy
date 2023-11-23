@@ -1,7 +1,10 @@
 package com.example.seccion_6.EjercicioSeccion.Adaptador;
 
 import android.app.Activity;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -49,50 +52,51 @@ public class FrutaVerduraAdapter extends RecyclerView.Adapter<FrutaVerduraAdapte
         holder.ibIncremento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FrutaVerdura fvSeleccionadaIncremento = listaFrutasVerduras.get(pos);
-                if(FrutaVerduraActivity.listaFrutasVerdurasCompra != null){
-
-                    if(FrutaVerduraActivity.listaFrutasVerdurasCompra.size() > 0){
-                        for(FrutaVerdura fvCompra : FrutaVerduraActivity.listaFrutasVerdurasCompra){
-                            if(fvCompra.getNombre() == fvSeleccionadaIncremento.getNombre()){
-                                if(fvSeleccionadaIncremento.existe()){
-                                    fvCompra.incrementarCantidad();
-                                    listaFrutasVerduras.get(pos).restarCantidad();
-                                    holder.tvCantidadTomadaValor.setText(String.valueOf(fvCompra.getCantidad()));
-                                    holder.tvCantidadValor.setText(String.valueOf(listaFrutasVerduras.get(pos).getCantidad()));
-                                    break;
-                                }
-
-                            }
-                        }
-                    }else{
-                        if(fvSeleccionadaIncremento.getCantidad() > 0){
-                            FrutaVerdura primerFV = new FrutaVerdura();
-                            primerFV.setNombre(fvSeleccionadaIncremento.getNombre());
-                            primerFV.setCategoria(fvSeleccionadaIncremento.getCategoria());
-                            primerFV.setCantidad(1);
-                            primerFV.setPrecio(fvSeleccionadaIncremento.getPrecio());
-                            primerFV.setImagen(0);
-                            FrutaVerduraActivity.listaFrutasVerdurasCompra.add(primerFV);
-                            listaFrutasVerduras.get(pos).restarCantidad();
-                            holder.tvCantidadTomadaValor.setText(String.valueOf(primerFV.getCantidad()));
-                            holder.tvCantidadValor.setText(String.valueOf(listaFrutasVerduras.get(pos).getCantidad()));
-                        }
-                    }
-
+                if(listaFrutasVerduras.get(pos).existe()){
+                    listaFrutasVerduras.get(pos).restarCantidad();
+                    listaFrutasVerduras.get(pos).incrementarCantidadTomada();
+                    holder.tvCantidadValor.setText(String.valueOf(listaFrutasVerduras.get(pos).getCantidad()));
+                    holder.tvCantidadTomadaValor.setText(String.valueOf(listaFrutasVerduras.get(pos).getCantidadTomada()));
+                    calcularPrecio();
+                    calcularCantidades();
                 }
-
-
             }
         });
 
         holder.ibDecremento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Incremento", Toast.LENGTH_LONG).show();
+                if(listaFrutasVerduras.get(pos).existeCantidadTomada()){
+                    listaFrutasVerduras.get(pos).incrementarCantidad();
+                    listaFrutasVerduras.get(pos).restarCantidadTomada();
+                    holder.tvCantidadValor.setText(String.valueOf(listaFrutasVerduras.get(pos).getCantidad()));
+                    holder.tvCantidadTomadaValor.setText(String.valueOf(listaFrutasVerduras.get(pos).getCantidadTomada()));
+                    calcularPrecio();
+                    calcularCantidades();
+                }
             }
         });
 
+    }
+
+    private void calcularPrecio(){
+        int costoTotal = 0;
+        for(FrutaVerdura fv : listaFrutasVerduras){
+            costoTotal += (fv.getCantidadTomada() * fv.getPrecio());
+        }
+        FrutaVerduraActivity.tvTotalPrecioValor.setText(String.valueOf(costoTotal));
+    }
+
+    private void calcularCantidades(){
+        int cantidadTotal = 0;
+        for(FrutaVerdura fv : listaFrutasVerduras){
+            cantidadTotal += fv.getCantidadTomada() ;
+        }
+        FrutaVerduraActivity.tvCantidadTotalValor.setText(String.valueOf(cantidadTotal));
+    }
+
+    public List<FrutaVerdura> getListaFrutasVerduras() {
+        return listaFrutasVerduras;
     }
 
     @Override
@@ -100,7 +104,7 @@ public class FrutaVerduraAdapter extends RecyclerView.Adapter<FrutaVerduraAdapte
         return listaFrutasVerduras.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
 
         public TextView tvNombreFrutaVerdura;
         public TextView tvPrecioValor;
@@ -121,6 +125,8 @@ public class FrutaVerduraAdapter extends RecyclerView.Adapter<FrutaVerduraAdapte
             ibIncremento = (ImageButton) itemView.findViewById(R.id.ibIncremento);
             ivFrutaVerdura = (ImageView) itemView.findViewById(R.id.ivFrutaVerdura);
 
+            itemView.setOnCreateContextMenuListener(this);
+
         }
 
         public void bind(final FrutaVerdura frutaVerdura){
@@ -128,7 +134,40 @@ public class FrutaVerduraAdapter extends RecyclerView.Adapter<FrutaVerduraAdapte
             tvPrecioValor.setText(String.valueOf(frutaVerdura.getPrecio()));
             tvCantidadValor.setText(String.valueOf(frutaVerdura.getCantidad()));
             ivFrutaVerdura.setImageResource(frutaVerdura.getImagen());
+            tvCantidadTomadaValor.setText(String.valueOf(frutaVerdura.getCantidadTomada()));
+        }
 
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+            menu.setHeaderTitle(listaFrutasVerduras.get(this.getAdapterPosition()).getNombre());
+            MenuInflater inflater = activity.getMenuInflater();
+            inflater.inflate(R.menu.menu_fv, menu);
+
+            // Por último, añadimos uno por uno, el listener onMenuItemClick para
+            // controlar las acciones en el contextMenu, anteriormente lo manejábamos
+            // con el método onContextItemSelected en el activity
+            for (int i = 0; i < menu.size(); i++) {
+                menu.getItem(i).setOnMenuItemClickListener(this);
+            }
+
+        }
+
+        @Override
+        public boolean onMenuItemClick(@NonNull MenuItem item) {
+            // No obtenemos nuestro objeto info
+            // porque la posición la podemos rescatar desde getAdapterPosition
+
+            switch(item.getItemId()){
+                case R.id.opcionEliminarFV:
+                    listaFrutasVerduras.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
+                    calcularPrecio();
+                    calcularCantidades();
+                    return true;
+
+                default: return false;
+            }
         }
 
     }

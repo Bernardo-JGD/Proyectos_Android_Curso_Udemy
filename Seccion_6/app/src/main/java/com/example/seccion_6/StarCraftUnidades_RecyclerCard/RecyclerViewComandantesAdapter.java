@@ -48,13 +48,6 @@ public class RecyclerViewComandantesAdapter extends RecyclerView.Adapter<Recycle
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(listaComandantes.get(position), clickListener);
-
-        holder.cardViewComandante.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Comandante: " + holder.textViewNombreComandante.getText(), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     @Override
@@ -77,7 +70,7 @@ public class RecyclerViewComandantesAdapter extends RecyclerView.Adapter<Recycle
             this.textViewDescripcionComandante = itemView.findViewById(R.id.textViewDescripcionComandante);
             this.imageViewComandante = itemView.findViewById(R.id.imageViewComandante);
             this.textViewMostrarMasMenos = itemView.findViewById(R.id.textViewMostrarMasMenos);
-            this.cardViewComandante = itemView.findViewById(R.id.cardViewComandante);
+            //this.cardViewComandante = itemView.findViewById(R.id.cardViewComandante);
 
             // Añadimos al view el listener para el context menu, en vez de hacerlo en
             // el activity mediante el método registerForContextMenu
