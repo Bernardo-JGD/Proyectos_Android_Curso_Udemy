@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Seccion_7_Ejercicio_Cuentas</string>
+
+    <string name="textViewInfoTipoMovimiento" >Tipo Movimiento</string>
+    <!--
+        Opciones del spinner
+        Todos los movimientos (Comenzando por el ultimo)
+            Mostrar si es abono o gasto por medio de color o símbolo o ambos
+            //Si es abono mostrar quien lo hizo (nombre corto)
+            Concepto
+            Monto
+            Fecha
+        Abonos
+            Nombre Corto
+            Concepto
+            Monto
+            Fecha
+        Gastos
+            Concepto
+            Monto
+            Fecha
+        Clientes
+            Nombre
+            Telefono
+            Ultimo abono
+            Fecha ultimo abono
+    -->
+    <string-array name="spinnerOpcionesMovimientos">
+        <item>Todos</item>
+        <item>Abonos</item>
+        <item>Gastos</item>
+        <item>Clientes</item>
+    </string-array>
+
+    <string name="textViewHintBuscar" >Nombre/Telefono</string>
+
+</resources>
