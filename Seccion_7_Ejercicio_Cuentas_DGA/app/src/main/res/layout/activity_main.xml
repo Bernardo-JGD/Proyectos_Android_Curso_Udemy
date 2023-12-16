@@ -36,8 +36,8 @@
             android:layout_height="1dp"
             android:background="@color/black" />
 
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextViewBuscar"
+        <EditText
+            android:id="@+id/editTextBuscar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/floatingActionButtonAgregar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
@@ -74,8 +74,8 @@
                 android:id="@+id/recyclerViewTodosMovimientos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                android:background="#FF5722"/>
+                android:background="#FF5722"
+                android:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewAbonos"

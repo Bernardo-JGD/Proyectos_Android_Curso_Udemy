@@ -66,4 +66,11 @@ public class Cliente extends RealmObject {
     public void setAbonosCliente(RealmList<Abono> abonosCliente) {
         this.abonosCliente = abonosCliente;
     }
+
+    @Override
+    public String toString() {
+        return nombreCliente;
+    }
+
+
 }
