@@ -103,7 +103,15 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButtonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(movimientoSeleccionado.equals("Todos")){
 
+                }else if(movimientoSeleccionado.equals("Abonos")){
+
+                }else if(movimientoSeleccionado.equals("Gastos")){
+
+                }else if(movimientoSeleccionado.equals("Clientes")){
+
+                }
             }
         });
 
@@ -141,11 +149,15 @@ public class MainActivity extends AppCompatActivity {
         editTextBuscar.setVisibility(View.VISIBLE);
     }
 
-    private void buscarClientes(String nombreNombreCortoTelefono){
+    private void showAlertDialogCrearCliente(){
 
     }
 
-    private void pruebaAutoComplete(){
+    private void showAlertDialogCrearGasto(){
+
+    }
+
+    private void showAlertDialogCrearAbono(){
 
     }
 

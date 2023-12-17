@@ -44,4 +44,7 @@
     <string name="tvItemRecyclerFechaDefecto" >12/12/2023</string>
     <string name="tvItemRecyclerMontoDefecto" >$99999.99</string>
 
+    <string name="tvItemRecyclerTelefono" >Teléfono:</string>
+    <string name="tvItemRecyclerTelefonoDefecto" >831-878-1440</string>
+
 </resources>
