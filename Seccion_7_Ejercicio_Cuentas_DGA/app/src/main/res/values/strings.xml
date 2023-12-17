@@ -34,4 +34,14 @@
 
     <string name="textViewHintBuscar" >Nombre/Telefono</string>
 
+    <string name="tvItemRecyclerCliente" >Cliente:</string>
+    <string name="tvItemRecyclerConcepto" >Concepto:</string>
+    <string name="tvItemRecyclerFecha" >Fecha:</string>
+    <string name="tvItemRecyclerMonto" >Monto</string>
+
+    <string name="tvItemRecyclerClienteDefecto" >Berna</string>
+    <string name="tvItemRecyclerConceptoDefecto" >Zapatos rojos</string>
+    <string name="tvItemRecyclerFechaDefecto" >12/12/2023</string>
+    <string name="tvItemRecyclerMontoDefecto" >$99999.99</string>
+
 </resources>
