@@ -2,6 +2,7 @@ package com.jbgd.seccion_7_ejercicio_cuentas_dga.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.PorterDuff;
@@ -14,11 +15,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.jbgd.seccion_7_ejercicio_cuentas_dga.Adapters.AdapterRecyclerViewMainAbonos;
+import com.jbgd.seccion_7_ejercicio_cuentas_dga.Adapters.AdapterRecyclerViewMainClientes;
+import com.jbgd.seccion_7_ejercicio_cuentas_dga.Adapters.AdapterRecyclerViewMainGastos;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Adapters.AdapterSpinnerTipoMovimiento;
+import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Abono;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Cliente;
+import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Gasto;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.R;
 
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +47,22 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerViewGastos;
     private RecyclerView recyclerViewClientes;
 
+    //Adapters Recyclers
+    private AdapterRecyclerViewMainAbonos adapterRecyclerViewMainAbonos;
+    private AdapterRecyclerViewMainGastos adapterRecyclerViewMainGastos;
+    private AdapterRecyclerViewMainClientes adapterRecyclerViewMainClientes;
+
+    //LayoutManagers para los RecyclerViews
+    private RecyclerView.LayoutManager layoutManagerAbonos;
+    private RecyclerView.LayoutManager layoutManagerGastos;
+    private RecyclerView.LayoutManager layoutManagerClientes;
+
+    //Realm y listas
+    private Realm realm;
+    private RealmResults<Abono> listaAbonos;
+    private RealmResults<Gasto> listaGastos;
+    private RealmResults<Cliente> listaClientes;
+
     //floatingActionButtonAgregar
     private FloatingActionButton floatingActionButtonAgregar;
 
@@ -46,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        realm = Realm.getDefaultInstance();
+
         spinnerTipoMovimiento = (Spinner) findViewById(R.id.spinnerTipoMovimiento);
         editTextBuscar = (EditText) findViewById(R.id.editTextBuscar);
 
@@ -53,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewAbonos = (RecyclerView) findViewById(R.id.recyclerViewAbonos);
         recyclerViewGastos = (RecyclerView) findViewById(R.id.recyclerViewGastos);
         recyclerViewClientes = (RecyclerView) findViewById(R.id.recyclerViewClientes);
+
+        layoutManagerAbonos = new LinearLayoutManager(this);
+        layoutManagerGastos = new LinearLayoutManager(this);
+        layoutManagerClientes = new LinearLayoutManager(this);
+
+        listaAbonos = realm.where(Abono.class).findAll();
+        listaGastos = realm.where(Gasto.class).findAll();
+        listaClientes = realm.where(Cliente.class).findAll();
 
         floatingActionButtonAgregar = (FloatingActionButton) findViewById(R.id.floatingActionButtonAgregar);
         //Asi puedo cambiar el color de lo que contiene adentro el FloatingActionButton

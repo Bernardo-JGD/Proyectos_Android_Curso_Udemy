@@ -8,7 +8,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRdius="10dp">
+    app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,6 +28,7 @@
                 android:gravity="end"
                 android:paddingRight="5dp"
                 android:text="@string/tvItemRecyclerCliente"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
@@ -35,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tvItemRecyclerConcepto"
+                android:textColor="@color/black"
                 android:gravity="end"
                 android:paddingRight="5dp"
                 android:textSize="16sp"
@@ -45,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tvItemRecyclerFecha"
+                android:textColor="@color/black"
                 android:gravity="end"
                 android:paddingRight="5dp"
                 android:textSize="16sp"/>
@@ -58,27 +61,30 @@
             android:layout_weight="0.5">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvRecyclerItemAbonoNombreValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tvItemRecyclerClienteDefecto"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="16sp"/>
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvRecyclerItemAbonoConceptoValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tvItemRecyclerConceptoDefecto"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginVertical="5dp"/>
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/tvRecyclerItemAbonoFechaValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tvItemRecyclerFechaDefecto"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="16sp"/>
         </LinearLayout>
@@ -94,14 +100,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tvItemRecyclerMonto"
+                android:textColor="@color/black"
                 android:gravity="center"
                 android:textSize="16sp"/>
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tvRecyclerItemAbonoMontoValue"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/tvItemRecyclerMontoDefecto"
+                android:textColor="@color/purple_700"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="18sp"/>

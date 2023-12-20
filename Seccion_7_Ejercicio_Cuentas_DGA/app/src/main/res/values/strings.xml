@@ -40,11 +40,14 @@
     <string name="tvItemRecyclerMonto" >Monto</string>
 
     <string name="tvItemRecyclerClienteDefecto" >Berna</string>
+    <string name="tvItemRecyclerNombreCompletoDefecto" >Mariana Montserrat Trejo Martínez</string>
     <string name="tvItemRecyclerConceptoDefecto" >Zapatos rojos</string>
     <string name="tvItemRecyclerFechaDefecto" >12/12/2023</string>
     <string name="tvItemRecyclerMontoDefecto" >$99999.99</string>
 
     <string name="tvItemRecyclerTelefono" >Teléfono:</string>
     <string name="tvItemRecyclerTelefonoDefecto" >831-878-1440</string>
+
+    <string name="tvItemRecyclerUltimoAbono" >Último \nAbono</string>
 
 </resources>

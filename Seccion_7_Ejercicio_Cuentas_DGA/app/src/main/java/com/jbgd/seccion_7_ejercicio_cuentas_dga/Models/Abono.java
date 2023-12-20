@@ -1,5 +1,7 @@
 package com.jbgd.seccion_7_ejercicio_cuentas_dga.Models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -57,4 +59,10 @@ public class Abono extends RealmObject {
     public void setMontoAbono(double montoAbono) {
         this.montoAbono = montoAbono;
     }
+
+    public String getFechaFormateada(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(fechaAbono);
+    }
+
 }

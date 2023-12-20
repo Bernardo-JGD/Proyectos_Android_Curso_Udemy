@@ -1,5 +1,7 @@
 package com.jbgd.seccion_7_ejercicio_cuentas_dga.Models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -58,4 +60,10 @@ public class Gasto extends RealmObject {
     public void setMontoGasto(double montoGasto) {
         this.montoGasto = montoGasto;
     }
+
+    public String getFechaFormateada(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(fechaGasto);
+    }
+
 }

@@ -1,5 +1,10 @@
 package com.jbgd.seccion_7_ejercicio_cuentas_dga.Models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -67,10 +72,34 @@ public class Cliente extends RealmObject {
         this.abonosCliente = abonosCliente;
     }
 
-    @Override
-    public String toString() {
-        return nombreCliente;
+    public Abono obtenerUltimoAbono(){
+        if(abonosCliente.isEmpty()){
+            return null;
+        }
+        Abono ultimoAbono = abonosCliente.get(0);
+        if(abonosCliente.size() > 1){
+            for(Abono abono : abonosCliente){
+                if(abono.getFechaAbono().after(ultimoAbono.getFechaAbono())){
+                    ultimoAbono = abono;
+                }
+            }
+        }
+        return ultimoAbono;
     }
 
+    public void organizarAbonosPorFecha(){
+        if(abonosCliente.size() > 1){
+            for(int i = 0; i<abonosCliente.size(); i++){
+                for(int j = 0; j<abonosCliente.size() - i - 1; j++){
+                    if(abonosCliente.get(j).getFechaAbono().after(abonosCliente.get(j+1).getFechaAbono())){
+                        Abono abonoTemporal = abonosCliente.get(j);
+                        abonosCliente.set(j, abonosCliente.get(j+1));
+                        abonosCliente.set(j+1, abonoTemporal);
+                    }
+
+                }
+            }
+        }
+    }
 
 }
