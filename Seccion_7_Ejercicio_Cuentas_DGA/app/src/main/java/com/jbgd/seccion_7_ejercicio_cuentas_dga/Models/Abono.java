@@ -1,5 +1,7 @@
 package com.jbgd.seccion_7_ejercicio_cuentas_dga.Models;
 
+import com.jbgd.seccion_7_ejercicio_cuentas_dga.App.MyApplication;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +23,7 @@ public class Abono extends RealmObject {
     private double montoAbono;
 
     public Abono(){
-
+        this.id = MyApplication.AbonoId.getAndIncrement();
     }
 
     public int getId() {

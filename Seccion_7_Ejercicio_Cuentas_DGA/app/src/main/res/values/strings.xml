@@ -50,4 +50,26 @@
 
     <string name="tvItemRecyclerUltimoAbono" >Último \nAbono</string>
 
+    <string name="tvNombre" >Nombre</string>
+    <string name="tvNombreCorto" >Nombre corto</string>
+    <string name="tvTeléfono" >Teléfono</string>
+    <string name="tvDireccion" >Dirección</string>
+
+    <string name="edHintNombreEjemplo" >Ejemplo: Mariana Montserrat Trejo Martínez</string>
+    <string name="edHintNombreCortoEjemplo" >Ejemplo: Mariana Tec</string>
+    <string name="edHintTelefonoEjemplo" >Ejemplo: 831-878-1234</string>
+    <string name="edHintDireccionEjemplo" >Colonia, calle, número interior/exterior. Trabajo</string>
+
+    <string name="tvConcepto" >Concepto</string>
+    <string name="tvDescripcion" >Descripción</string>
+    <string name="tvFecha" >Fecha</string>
+    <string name="tvMonto" >Monto</string>
+
+    <string name="edHintConceptoEjemplo" >Ejemplo: Mandado</string>
+    <string name="edHintDescripcion" >Ejemplo: Cosas comparadas en farmacia Gauadalajara</string>
+
+    <string name="tvDia" >Día</string>
+    <string name="tvMes" >Mes</string>
+    <string name="tvYear" >Año</string>
+
 </resources>

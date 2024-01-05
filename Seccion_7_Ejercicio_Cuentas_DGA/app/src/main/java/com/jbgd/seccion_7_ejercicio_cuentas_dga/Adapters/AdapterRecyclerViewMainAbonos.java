@@ -27,7 +27,7 @@ public class AdapterRecyclerViewMainAbonos extends RecyclerView.Adapter<AdapterR
         this.listaClientes = listaClientes;
         this.activity = activity;
         this.layout = layout;
-        ordenarListaAbonos();
+        //ordenarListaAbonos();
     }
 
     private void ordenarListaAbonos(){

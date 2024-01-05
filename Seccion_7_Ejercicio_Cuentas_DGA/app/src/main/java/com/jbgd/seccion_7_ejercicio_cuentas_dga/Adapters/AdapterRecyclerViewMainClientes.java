@@ -82,11 +82,18 @@ public class AdapterRecyclerViewMainClientes extends RecyclerView.Adapter<Adapte
         }
 
         public void bind(final Cliente cliente){
-            String fecha = cliente.obtenerUltimoAbono().getFechaFormateada();
-            String monto = String.valueOf(cliente.obtenerUltimoAbono().getMontoAbono());
+            String fecha = "";
+            String monto = "No hay abonos";
+            if(!cliente.getAbonosCliente().isEmpty()){
+                fecha = cliente.obtenerUltimoAbono().getFechaFormateada();
+                monto = String.valueOf(cliente.obtenerUltimoAbono().getMontoAbono());
+                tvRecyclerItemClienteFechaValue.setText(fecha);
+                tvRecyclerItemClienteMontoValue.setText(monto);
+            }
             tvRecyclerItemClienteNombreValue.setText(cliente.getNombreCliente());
-            tvRecyclerItemClienteFechaValue.setText(fecha);
-            tvRecyclerItemClienteMontoValue.setText(monto);
+            tvRecyclerItemClienteFechaValue.setVisibility(View.GONE);
+            tvRecyclerItemClienteMontoValue.setVisibility(View.GONE);
+
         }
 
     }

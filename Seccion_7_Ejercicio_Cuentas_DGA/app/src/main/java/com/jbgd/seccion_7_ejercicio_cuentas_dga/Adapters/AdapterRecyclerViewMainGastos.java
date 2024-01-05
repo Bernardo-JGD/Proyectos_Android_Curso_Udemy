@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Abono;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Gasto;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.R;
 
@@ -20,10 +21,24 @@ public class AdapterRecyclerViewMainGastos extends RecyclerView.Adapter<AdapterR
     private Activity activity;
     private int layout;
 
-    public AdapterRecyclerViewMainGastos(List<Gasto> listaGastos, Activity activity, int layout){
+    public AdapterRecyclerViewMainGastos(List<Gasto> listaGastos, int layout, Activity activity){
         this.listaGastos = listaGastos;
         this.activity = activity;
         this.layout = layout;
+        //ordenarListaAbonos();
+    }
+
+    private void ordenarListaAbonos(){
+        if(listaGastos.size() > 1){
+            for(int i = 0; i<listaGastos.size(); i++){
+                for(int j = 0; j<listaGastos.size() - i - 1; j++){
+                    if(listaGastos.get(j).getFechaGasto().after(listaGastos.get(j+1).getFechaGasto())){
+                        listaGastos.add(j, listaGastos.get(j + 1));
+                        listaGastos.remove(j+2);
+                    }
+                }
+            }
+        }
     }
 
     @NonNull
@@ -65,7 +80,7 @@ public class AdapterRecyclerViewMainGastos extends RecyclerView.Adapter<AdapterR
             String montoGasto = String.valueOf(gasto.getMontoGasto());
             tvRecyclerItemGastoConceptoValue.setText(gasto.getConceptoGasto());
             tvRecyclerItemGastoFechaValue.setText(gasto.getFechaFormateada());
-            tvRecyclerItemGastoMontoValue.setText(montoGasto);
+            tvRecyclerItemGastoMontoValue.setText("$ " + montoGasto);
         }
 
     }

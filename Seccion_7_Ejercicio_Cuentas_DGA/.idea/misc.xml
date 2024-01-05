@@ -4,12 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android_Udemy_Git/Proyectos_Android_Curso_Udemy/Seccion_7_Ejercicio_Cuentas_DGA/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Android_Udemy_Git/Proyectos_Android_Curso_Udemy/Seccion_7_Ejercicio_Cuentas_DGA/app/src/main/res/layout/dialog_create_cliente.xml" value="0.33" />
+        <entry key="..\:/Android_Udemy_Git/Proyectos_Android_Curso_Udemy/Seccion_7_Ejercicio_Cuentas_DGA/app/src/main/res/layout/dialog_create_gasto.xml" value="0.33" />
         <entry key="..\:/Android_Udemy_Git/Proyectos_Android_Curso_Udemy/Seccion_7_Ejercicio_Cuentas_DGA/app/src/main/res/layout/item_auto_complete_textview_clientes.xml" value="0.67" />
         <entry key="..\:/Android_Udemy_Git/Proyectos_Android_Curso_Udemy/Seccion_7_Ejercicio_Cuentas_DGA/app/src/main/res/layout/item_recyclerview_main_abonos.xml" value="0.5" />
         <entry key="..\:/Android_Udemy_Git/Proyectos_Android_Curso_Udemy/Seccion_7_Ejercicio_Cuentas_DGA/app/src/main/res/layout/item_recyclerview_main_clientes.xml" value="0.5" />
         <entry key="..\:/Android_Udemy_Git/Proyectos_Android_Curso_Udemy/Seccion_7_Ejercicio_Cuentas_DGA/app/src/main/res/layout/item_recyclerview_main_gastos.xml" value="0.5" />
         <entry key="..\:/Android_Udemy_Git/Proyectos_Android_Curso_Udemy/Seccion_7_Ejercicio_Cuentas_DGA/app/src/main/res/layout/item_recyclerview_main_todos_movimientos.xml" value="0.203125" />
         <entry key="..\:/Android_Udemy_Git/Proyectos_Android_Curso_Udemy/Seccion_7_Ejercicio_Cuentas_DGA/app/src/main/res/layout/item_spinner_tipo_movimiento.xml" value="0.203125" />
+        <entry key="..\:/Users/blade/AppData/Local/Android/Sdk/platforms/android-34/data/res/layout/auto_complete_list.xml" value="0.33" />
       </map>
     </option>
   </component>
