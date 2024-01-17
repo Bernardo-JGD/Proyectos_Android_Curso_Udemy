@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Seccion_7_Ejercicio_Cuentas_DGA</string>
 
-    <string name="textViewInfoTipoMovimiento" >Tipo Movimiento</string>
+    <string name="textViewInfoTipoMovimiento">Tipo Movimiento</string>
     <!--
         Opciones del spinner
         Todos los movimientos (Comenzando por el ultimo)
@@ -32,44 +32,44 @@
         <item>Clientes</item>
     </string-array>
 
-    <string name="textViewHintBuscar" >Nombre/Telefono</string>
+    <string name="textViewHintBuscar">Nombre/Telefono</string>
 
-    <string name="tvItemRecyclerCliente" >Cliente:</string>
-    <string name="tvItemRecyclerConcepto" >Concepto:</string>
-    <string name="tvItemRecyclerFecha" >Fecha:</string>
-    <string name="tvItemRecyclerMonto" >Monto</string>
+    <string name="tvItemRecyclerCliente">Cliente:</string>
+    <string name="tvItemRecyclerConcepto">Concepto:</string>
+    <string name="tvItemRecyclerFecha">Fecha:</string>
+    <string name="tvItemRecyclerMonto">Monto</string>
 
-    <string name="tvItemRecyclerClienteDefecto" >Berna</string>
-    <string name="tvItemRecyclerNombreCompletoDefecto" >Mariana Montserrat Trejo Martínez</string>
-    <string name="tvItemRecyclerConceptoDefecto" >Zapatos rojos</string>
-    <string name="tvItemRecyclerFechaDefecto" >12/12/2023</string>
-    <string name="tvItemRecyclerMontoDefecto" >$99999.99</string>
+    <string name="tvItemRecyclerClienteDefecto">Berna</string>
+    <string name="tvItemRecyclerNombreCompletoDefecto">Mariana Montserrat Trejo Martínez</string>
+    <string name="tvItemRecyclerConceptoDefecto">Zapatos rojos</string>
+    <string name="tvItemRecyclerFechaDefecto">12/12/2023</string>
+    <string name="tvItemRecyclerMontoDefecto">$99999.99</string>
 
-    <string name="tvItemRecyclerTelefono" >Teléfono:</string>
-    <string name="tvItemRecyclerTelefonoDefecto" >831-878-1440</string>
+    <string name="tvItemRecyclerTelefono">Teléfono:</string>
+    <string name="tvItemRecyclerTelefonoDefecto">831-878-1440</string>
 
-    <string name="tvItemRecyclerUltimoAbono" >Último \nAbono</string>
+    <string name="tvItemRecyclerUltimoAbono">Último \nAbono</string>
 
-    <string name="tvNombre" >Nombre</string>
-    <string name="tvNombreCorto" >Nombre corto</string>
-    <string name="tvTeléfono" >Teléfono</string>
-    <string name="tvDireccion" >Dirección</string>
+    <string name="tvNombre">Nombre</string>
+    <string name="tvNombreCorto">Nombre corto</string>
+    <string name="tvTeléfono">Teléfono</string>
+    <string name="tvDireccion">Dirección</string>
 
-    <string name="edHintNombreEjemplo" >Ejemplo: Mariana Montserrat Trejo Martínez</string>
-    <string name="edHintNombreCortoEjemplo" >Ejemplo: Mariana Tec</string>
-    <string name="edHintTelefonoEjemplo" >Ejemplo: 831-878-1234</string>
-    <string name="edHintDireccionEjemplo" >Colonia, calle, número interior/exterior. Trabajo</string>
+    <string name="edHintNombreEjemplo">Ejemplo: Mariana Montserrat Trejo Martínez</string>
+    <string name="edHintNombreCortoEjemplo">Ejemplo: Mariana Tec</string>
+    <string name="edHintTelefonoEjemplo">Ejemplo: 831-878-1234</string>
+    <string name="edHintDireccionEjemplo">Colonia, calle, número interior/exterior. Trabajo</string>
 
-    <string name="tvConcepto" >Concepto</string>
-    <string name="tvDescripcion" >Descripción</string>
-    <string name="tvFecha" >Fecha</string>
-    <string name="tvMonto" >Monto</string>
+    <string name="tvConcepto">Concepto</string>
+    <string name="tvDescripcion">Descripción</string>
+    <string name="tvFecha">Fecha</string>
+    <string name="tvMonto">Monto</string>
 
-    <string name="edHintConceptoEjemplo" >Ejemplo: Mandado</string>
-    <string name="edHintDescripcion" >Ejemplo: Cosas comparadas en farmacia Gauadalajara</string>
+    <string name="edHintConceptoEjemplo">Ejemplo: Mandado</string>
+    <string name="edHintDescripcion">Ejemplo: Cosas comparadas en farmacia Gauadalajara</string>
 
-    <string name="tvDia" >Día</string>
-    <string name="tvMes" >Mes</string>
-    <string name="tvYear" >Año</string>
+    <string name="tvDia">Día</string>
+    <string name="tvMes">Mes</string>
+    <string name="tvYear">Año</string>
 
 </resources>

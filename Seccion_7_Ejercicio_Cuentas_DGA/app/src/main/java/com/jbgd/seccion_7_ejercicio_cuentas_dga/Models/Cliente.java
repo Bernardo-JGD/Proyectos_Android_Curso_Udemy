@@ -2,6 +2,7 @@ package com.jbgd.seccion_7_ejercicio_cuentas_dga.Models;
 
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.App.MyApplication;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,7 +13,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class Cliente extends RealmObject {
+public class Cliente extends RealmObject implements Serializable {
 
     @PrimaryKey
     private int id;
@@ -32,6 +33,10 @@ public class Cliente extends RealmObject {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getNombreCliente() {

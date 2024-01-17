@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -36,6 +37,7 @@ import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Cliente;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Gasto;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.R;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -123,6 +125,13 @@ public class MainActivity extends AppCompatActivity  {
         recyclerViewClientes.setItemAnimator(new DefaultItemAnimator());
         recyclerViewClientes.setLayoutManager(layoutManagerClientes);
         recyclerViewClientes.setAdapter(adapterRecyclerViewMainClientes);
+
+        adapterRecyclerViewMainClientes.setOnItemClickListener(new AdapterRecyclerViewMainClientes.OnItemClickListener() {
+            @Override
+            public void OnItemClick(Cliente cliente) {
+                goToAbonosClientes(cliente);
+            }
+        });
 
         listaClientes.addChangeListener(new RealmChangeListener<RealmResults<Cliente>>() {
             @Override
@@ -422,8 +431,10 @@ public class MainActivity extends AppCompatActivity  {
         textViewFechaMostrada.setText("Fecha: " + fechaFormateada);
     }
 
-    private void showAlertDialogCrearAbono(){
-
+    private void goToAbonosClientes(Cliente cliente){
+        Intent intent = new Intent(MainActivity.this, ClientesActivity.class);
+        intent.putExtra("idClienteSeleccionado",  cliente.getId());
+        startActivity(intent);
     }
 
 }

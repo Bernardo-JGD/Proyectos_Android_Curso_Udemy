@@ -1,7 +1,10 @@
 package com.jbgd.seccion_7_ejercicio_cuentas_dga.Adapters;
 
 import android.app.Activity;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -61,7 +64,7 @@ public class AdapterRecyclerViewMainGastos extends RecyclerView.Adapter<AdapterR
         return listaGastos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
 
         public TextView tvRecyclerItemGastoConceptoValue;
         public TextView tvRecyclerItemGastoFechaValue;
@@ -74,6 +77,8 @@ public class AdapterRecyclerViewMainGastos extends RecyclerView.Adapter<AdapterR
             tvRecyclerItemGastoFechaValue = (TextView) itemView.findViewById(R.id.tvRecyclerItemGastoFechaValue);
             tvRecyclerItemGastoMontoValue = (TextView) itemView.findViewById(R.id.tvRecyclerItemGastoMontoValue);
 
+            itemView.setOnCreateContextMenuListener(this);
+
         }
 
         public void bind(Gasto gasto){
@@ -81,6 +86,34 @@ public class AdapterRecyclerViewMainGastos extends RecyclerView.Adapter<AdapterR
             tvRecyclerItemGastoConceptoValue.setText(gasto.getConceptoGasto());
             tvRecyclerItemGastoFechaValue.setText(gasto.getFechaFormateada());
             tvRecyclerItemGastoMontoValue.setText("$ " + montoGasto);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle(listaGastos.get(getAdapterPosition()).getConceptoGasto());
+            MenuInflater menuInflater = activity.getMenuInflater();
+            menuInflater.inflate(R.menu.menu_adapter_main_opciones, menu);
+
+            for(int i = 0; i<menu.size(); i++){
+                menu.getItem(i).setOnMenuItemClickListener(this);
+            }
+        }
+
+        @Override
+        public boolean onMenuItemClick(@NonNull MenuItem item) {
+
+            switch(item.getItemId()){
+                case R.id.opcionEditar:
+
+                    return true;
+
+                case R.id.opcionEliminar:
+
+                    return true;
+
+                default: return false;
+            }
+
         }
 
     }
