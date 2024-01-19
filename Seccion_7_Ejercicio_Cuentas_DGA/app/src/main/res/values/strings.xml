@@ -72,4 +72,6 @@
     <string name="tvMes">Mes</string>
     <string name="tvYear">Año</string>
 
+    <string name="mensajeEliminarGasto">¿Realmente desea <b>eliminar</b> este gasto?</string>
+
 </resources>

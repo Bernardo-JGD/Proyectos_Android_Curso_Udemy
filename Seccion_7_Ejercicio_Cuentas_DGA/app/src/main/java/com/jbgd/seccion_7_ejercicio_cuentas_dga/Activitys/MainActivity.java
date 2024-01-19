@@ -95,6 +95,8 @@ public class MainActivity extends AppCompatActivity  {
     private TextView textViewFechaMostrada;
     private Date fechaSeleccionada;
 
+    public static TextView textViewGastosTotalMensual;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity  {
 
         spinnerTipoMovimiento = (Spinner) findViewById(R.id.spinnerTipoMovimiento);
         editTextBuscar = (EditText) findViewById(R.id.editTextBuscar);
+        textViewGastosTotalMensual = (TextView) findViewById(R.id.textViewGastosTotalMensual);
 
         recyclerViewTodosMovimientos = (RecyclerView) findViewById(R.id.recyclerViewTodosMovimientos);
         recyclerViewAbonos = (RecyclerView) findViewById(R.id.recyclerViewAbonos);
@@ -221,6 +224,7 @@ public class MainActivity extends AppCompatActivity  {
         recyclerViewGastos.setVisibility(View.GONE);
         recyclerViewClientes.setVisibility(View.GONE);
         editTextBuscar.setVisibility(View.GONE);
+        textViewGastosTotalMensual.setVisibility(View.GONE);
     }
 
     private void habilitarAbonos(){
@@ -229,10 +233,12 @@ public class MainActivity extends AppCompatActivity  {
         recyclerViewGastos.setVisibility(View.GONE);
         recyclerViewClientes.setVisibility(View.GONE);
         editTextBuscar.setVisibility(View.GONE);
+        textViewGastosTotalMensual.setVisibility(View.GONE);
     }
 
     private void habilitarGastos(){
         recyclerViewGastos.setVisibility(View.VISIBLE);
+        textViewGastosTotalMensual.setVisibility(View.VISIBLE);
         recyclerViewTodosMovimientos.setVisibility(View.GONE);
         recyclerViewAbonos.setVisibility(View.GONE);
         recyclerViewClientes.setVisibility(View.GONE);
@@ -245,6 +251,7 @@ public class MainActivity extends AppCompatActivity  {
         recyclerViewAbonos.setVisibility(View.GONE);
         recyclerViewGastos.setVisibility(View.GONE);
         editTextBuscar.setVisibility(View.VISIBLE);
+        textViewGastosTotalMensual.setVisibility(View.GONE);
     }
 
     private void crearCliente(Cliente cliente){
@@ -257,6 +264,7 @@ public class MainActivity extends AppCompatActivity  {
         realm.beginTransaction();
         realm.copyToRealm(gasto);
         realm.commitTransaction();
+        adapterRecyclerViewMainGastos.sumarGastosMes();
     }
 
     private void showAlertDialogCrearCliente(){
@@ -364,6 +372,13 @@ public class MainActivity extends AppCompatActivity  {
                     gasto.setMontoGasto(Double.parseDouble(monto));
                     crearGasto(gasto);
                 }
+
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
             }
         });
