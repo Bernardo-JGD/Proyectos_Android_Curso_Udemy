@@ -74,4 +74,12 @@
 
     <string name="mensajeEliminarGasto">¿Realmente desea <b>eliminar</b> este gasto?</string>
 
+    <!--Filtro de abonos cliente-->
+    <string name="tvFechaInicio" >Fecha inicio</string>
+    <string name="tvFechaFin" >Fecha fin</string>
+    <string name="tvFechaInicioValor" >Miércoles 12 de septiembre del 2024</string>
+    <string name="tvFechaFinValor" >Domingo 17 de diciembre del 2024</string>
+    <string name="tvTotalPorFechas" >Total $ 99999</string>
+    <string name="btnFiltrarAbonos" >Filtrar</string>
+
 </resources>

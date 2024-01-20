@@ -186,8 +186,6 @@ public class AdapterRecyclerViewMainGastos extends RecyclerView.Adapter<AdapterR
             numberPickerFechaMes.setOnValueChangedListener(cambioDeFecha);
             numberPickerFechaYear.setOnValueChangedListener(cambioDeFecha);
 
-
-
             builder.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
