@@ -82,4 +82,7 @@
     <string name="tvTotalPorFechas" >Total $ 99999</string>
     <string name="btnFiltrarAbonos" >Filtrar</string>
 
+    <string name="tvFechaAbonoEjemplo" >01/01/2024</string>
+    <string name="tvMontoAbono" >$ 9999.99</string>
+
 </resources>
