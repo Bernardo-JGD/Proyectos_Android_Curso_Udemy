@@ -68,4 +68,8 @@ public class Abono extends RealmObject implements Serializable {
         return dateFormat.format(fechaAbono);
     }
 
+    public String getMontoToString(){
+        return String.valueOf(montoAbono);
+    }
+
 }
