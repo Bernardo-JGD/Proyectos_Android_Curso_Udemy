@@ -55,7 +55,8 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="10dp">
 
             <TextView
                 android:id="@+id/textViewFiltroFechaFinal"
@@ -78,6 +79,7 @@
                 android:id="@+id/textViewTotalAbonosRango"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_weight="0.7"
                 android:text="@string/tvTotalPorFechas"
                 android:textSize="18sp"

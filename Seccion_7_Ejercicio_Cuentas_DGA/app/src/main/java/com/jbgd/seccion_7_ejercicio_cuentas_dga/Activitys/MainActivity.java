@@ -1,7 +1,6 @@
 package com.jbgd.seccion_7_ejercicio_cuentas_dga.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,13 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,10 +20,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Adapters.AdapterRecyclerViewMainAbonos;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Adapters.AdapterRecyclerViewMainClientes;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Adapters.AdapterRecyclerViewMainGastos;
@@ -37,7 +31,6 @@ import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Cliente;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Gasto;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.R;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,7 +39,6 @@ import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
@@ -337,7 +329,7 @@ public class MainActivity extends AppCompatActivity  {
         builder.setTitle("Registrar Gasto");
         builder.setMessage("Ingrese los siguientes datos");
 
-        viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_create_gasto, null);
+        viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_create_update_gasto, null);
         builder.setView(viewInflated);
 
         final EditText editTextConceptoGastoValor = viewInflated.findViewById(R.id.editTextConceptoGastoValor);

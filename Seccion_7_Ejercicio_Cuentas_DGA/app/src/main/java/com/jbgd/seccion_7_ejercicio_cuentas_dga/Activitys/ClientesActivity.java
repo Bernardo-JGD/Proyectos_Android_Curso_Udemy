@@ -77,6 +77,12 @@ public class ClientesActivity extends AppCompatActivity {
         Realm.init(getApplicationContext());
         realm = Realm.getDefaultInstance();
 
+        //Recibiendo cliente
+        if(getIntent().getExtras() != null && getIntent().getExtras().getInt("idClienteSeleccionado") >= 0){
+            idCliente = getIntent().getExtras().getInt("idClienteSeleccionado");
+            consultarCliente();
+        }
+
         //Filtro
         cardFiltroFechaInicial = (CardView) findViewById(R.id.cardFiltroFechaInicial);
         cardFiltroFechaFinal = (CardView) findViewById(R.id.cardFiltroFechaFinal);
@@ -107,19 +113,21 @@ public class ClientesActivity extends AppCompatActivity {
         recyclerViewClientesAbonos = (RecyclerView) findViewById(R.id.recyclerViewClientesAbonos);
         layoutManagerClientesAbonos = new LinearLayoutManager(this);
 
+        //Realizar filtrado por fecha
+        btnFiltrarAbonos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dateFinal.after(dateInicial)){
+
+                }else{
+                    toastFechaNoValida();
+                }
+            }
+        });
+
         //Agregar abono
         fabAgregarAbono = (FloatingActionButton) findViewById(R.id.fabAgregarAbono);
         fabAgregarAbono.setColorFilter(ContextCompat.getColor(this, R.color.white), PorterDuff.Mode.SRC_IN);
-
-        //Recibiendo cliente
-        if(getIntent().getExtras() != null && getIntent().getExtras().getInt("Id") > 0){
-            idCliente = getIntent().getExtras().getInt("Id");
-            consultarCliente();
-        }
-
-        //Falta recibir id de cliente para consultarlo y extraer info
-        //llenar actionbar, recyclerView
-        //getSupportActionBar().setTitle("Abonos: " + cliente.getNombreCliente());
 
         fabAgregarAbono.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +140,7 @@ public class ClientesActivity extends AppCompatActivity {
 
     private void consultarCliente() {
         cliente = realm.where(Cliente.class).equalTo("id", idCliente).findFirst();
+        getSupportActionBar().setTitle("Abonos: " + cliente.getNombreCliente());
         cliente.addChangeListener(new RealmChangeListener<RealmModel>() {
             @Override
             public void onChange(RealmModel realmModel) {
@@ -203,14 +212,18 @@ public class ClientesActivity extends AppCompatActivity {
     private void obtenerFechasCalendarView(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
-
+        Date fechaSeleccionada = calendar.getTime();
         if(tipoFecha == 1){
-            dateInicial = calendar.getTime();
+            if(fechaSeleccionada.before(dateFinal)){
+                dateInicial = fechaSeleccionada;
+            }else{
+                toastFechaNoValida();
+            }
         }else if(tipoFecha == 2){
-            if(calendar.getTime().after(dateInicial)){
+            if(fechaSeleccionada.after(dateInicial)){
                 dateFinal = calendar.getTime();
             }else{
-                Toast.makeText(this, "Fecha menor, no valida", Toast.LENGTH_LONG).show();
+                toastFechaNoValida();
             }
         }
 
@@ -224,6 +237,10 @@ public class ClientesActivity extends AppCompatActivity {
             fechaInicial = dateFormat.format(dateFinal);
             textViewFiltroFechaFinal.setText(fechaInicial);
         }
+    }
+
+    private void toastFechaNoValida(){
+        Toast.makeText(this, "Rango de fechas no valido", Toast.LENGTH_LONG).show();
     }
 
 }

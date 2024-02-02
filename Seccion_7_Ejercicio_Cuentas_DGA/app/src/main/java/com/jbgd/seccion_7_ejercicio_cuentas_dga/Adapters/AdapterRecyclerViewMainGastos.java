@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Activitys.MainActivity;
-import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Abono;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.Models.Gasto;
 import com.jbgd.seccion_7_ejercicio_cuentas_dga.R;
 
@@ -165,7 +164,7 @@ public class AdapterRecyclerViewMainGastos extends RecyclerView.Adapter<AdapterR
             builder.setTitle("Gasto: " + gasto.getConceptoGasto());
             builder.setMessage("Edite los campos que desee");
 
-            View viewInflated = LayoutInflater.from(activity).inflate(R.layout.dialog_create_gasto, null);
+            View viewInflated = LayoutInflater.from(activity).inflate(R.layout.dialog_create_update_gasto, null);
             builder.setView(viewInflated);
 
             final EditText editTextConceptoGastoValor = viewInflated.findViewById(R.id.editTextConceptoGastoValor);
