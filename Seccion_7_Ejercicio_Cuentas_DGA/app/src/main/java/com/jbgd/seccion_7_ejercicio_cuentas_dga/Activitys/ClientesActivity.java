@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +53,7 @@ public class ClientesActivity extends AppCompatActivity {
     private Button btnFiltrarAbonos;
 
     //Filtro - Seleccionar fechas
-    private CalendarView calendarViewFiltro;
+    private CalendarView calendarView;
     private String fechaInicial;
     private String fechaFinal;
     private Date dateInicial;
@@ -68,6 +69,7 @@ public class ClientesActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManagerClientesAbonos;
 
     private FloatingActionButton fabAgregarAbono;
+    private Date dateAbonoInicial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +134,7 @@ public class ClientesActivity extends AppCompatActivity {
         fabAgregarAbono.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                alertDialogCrearAbono();
             }
         });
 
@@ -147,7 +149,10 @@ public class ClientesActivity extends AppCompatActivity {
 
             }
         });
-        listaAbonos = cliente.getAbonosCliente();
+        //Duda pero a ver como jala
+        //https://stackoverflow.com/questions/30115021/how-to-convert-realmresults-object-to-realmlist
+        listaAbonos = new RealmList<Abono>();
+        listaAbonos.addAll(cliente.getAbonosCliente().where().between("fechaAbono", dateInicial, dateFinal).findAll());
     }
 
     private void inicializarFechas(){
@@ -178,12 +183,12 @@ public class ClientesActivity extends AppCompatActivity {
 
         builder.setMessage("Seleccione una fecha");
 
-        viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_filtro_fecha, null);
+        viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_fecha, null);
         builder.setView(viewInflated);
 
-        calendarViewFiltro = viewInflated.findViewById(R.id.calendarViewFiltro);
+        calendarView = viewInflated.findViewById(R.id.calendarView);
 
-        calendarViewFiltro.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 obtenerFechasCalendarView(year, month, dayOfMonth);
@@ -241,6 +246,82 @@ public class ClientesActivity extends AppCompatActivity {
 
     private void toastFechaNoValida(){
         Toast.makeText(this, "Rango de fechas no valido", Toast.LENGTH_LONG).show();
+    }
+
+    private void alertDialogCrearAbono(){
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle("Registrar Abono");
+        builder.setMessage("Ingrese los siguientes datos");
+
+        viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_create_abono, null);
+        builder.setView(viewInflated);
+
+        final EditText editTextAbonoConceptoValor = viewInflated.findViewById(R.id.editTextAbonoConceptoValor);
+        final EditText editTextDescripcionGastoValor = viewInflated.findViewById(R.id.editTextDescripcionGastoValor);
+        CardView cardViewAbonoFechaButton = viewInflated.findViewById(R.id.cardViewAbonoFechaButton);
+        TextView textViewAbonoFechaMostrar = viewInflated.findViewById(R.id.textViewAbonoFechaMostrar);
+
+        cardViewAbonoFechaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialogCalendarFechaAbono(textViewAbonoFechaMostrar);
+            }
+        });
+
+        builder.setPositiveButton("Registrar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.create();
+        builder.show();
+
+    }
+
+    private void alertDialogCalendarFechaAbono(TextView mostrarFecha){
+        AlertDialog.Builder builderCalendar = new AlertDialog.Builder(this);
+        builderCalendar.setTitle("Fecha Abono");
+        builderCalendar.setMessage("Seleccione una fecha para el abono");
+
+        View viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_fecha, null);
+        builderCalendar.setView(viewInflated);
+
+        calendarView = viewInflated.findViewById(R.id.calendarView);
+        final Calendar calendar = Calendar.getInstance();
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                calendar.set(year, month, dayOfMonth);
+                dateAbonoInicial = calendar.getTime();
+            }
+        });
+
+        builderCalendar.setPositiveButton("Seleccionar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mostrarFecha.setText(dateFormat.format(dateAbonoInicial));
+            }
+        });
+
+        builderCalendar.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builderCalendar.create();
+        builderCalendar.show();
+
     }
 
 }

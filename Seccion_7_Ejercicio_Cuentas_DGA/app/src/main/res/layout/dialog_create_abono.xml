@@ -11,31 +11,43 @@
         android:id="@+id/textView22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="16sp"/>
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTextAbonoConceptoValor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="@string/edHintConceptoAbono"/>
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="16sp"/>
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/editTextAbonoDescripcionValor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:lines="3"
         android:gravity="start|top"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:hint="@string/edHintDescripcionAbono"/>
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tvFecha"
+        android:textSize="16sp"/>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewAbonoFechaButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
@@ -44,22 +56,25 @@
         app:cardCornerRadius="10dp">
 
         <TextView
-            android:id="@+id/textView24"
+            android:id="@+id/textViewAbonoFechaMostrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_gravity="center"
-            android:text="TextView" />
+            android:text="@string/tvSinFecha"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="@string/tvMonto"
+        android:textSize="16sp"/>
 
     <EditText
-        android:id="@+id/editTextNumberDecimal"
+        android:id="@+id/editTextAbonoMontoValor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

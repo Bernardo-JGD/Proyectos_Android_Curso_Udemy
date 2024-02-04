@@ -85,4 +85,10 @@
     <string name="tvFechaAbonoEjemplo" >01/01/2024</string>
     <string name="tvMontoAbono" >$ 9999.99</string>
 
+    <!--Crear abono-->
+    <string name="edHintConceptoAbono" >Ejemplo: Zapatos Rojos</string>
+    <string name="edHintDescripcionAbono" >Ejemplo: Andrea codigo 1234</string>
+    <string name="tvSinFecha" >---------------</string>
+
+
 </resources>
