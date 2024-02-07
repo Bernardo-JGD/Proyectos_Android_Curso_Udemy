@@ -5,12 +5,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +36,8 @@ import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmList;
 import io.realm.RealmModel;
+import io.realm.RealmQuery;
+import io.realm.Sort;
 
 public class ClientesActivity extends AppCompatActivity {
 
@@ -79,11 +83,6 @@ public class ClientesActivity extends AppCompatActivity {
         Realm.init(getApplicationContext());
         realm = Realm.getDefaultInstance();
 
-        //Recibiendo cliente
-        if(getIntent().getExtras() != null && getIntent().getExtras().getInt("idClienteSeleccionado") >= 0){
-            idCliente = getIntent().getExtras().getInt("idClienteSeleccionado");
-            consultarCliente();
-        }
 
         //Filtro
         cardFiltroFechaInicial = (CardView) findViewById(R.id.cardFiltroFechaInicial);
@@ -94,6 +93,12 @@ public class ClientesActivity extends AppCompatActivity {
         btnFiltrarAbonos = (Button) findViewById(R.id.btnFiltrarAbonos);
         dateFormat = new SimpleDateFormat("EEEE dd 'de' MMMM 'del' yyyy", new Locale("es", "ES"));
         inicializarFechas();
+
+        //Recibiendo cliente
+        if(getIntent().getExtras() != null && getIntent().getExtras().getInt("idClienteSeleccionado") >= 0){
+            idCliente = getIntent().getExtras().getInt("idClienteSeleccionado");
+            consultarCliente();
+        }
 
         cardFiltroFechaInicial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,13 +119,26 @@ public class ClientesActivity extends AppCompatActivity {
         //Lista abonos
         recyclerViewClientesAbonos = (RecyclerView) findViewById(R.id.recyclerViewClientesAbonos);
         layoutManagerClientesAbonos = new LinearLayoutManager(this);
+        recyclerViewClientesAbonos.setHasFixedSize(true);
+        recyclerViewClientesAbonos.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewClientesAbonos.setLayoutManager(layoutManagerClientesAbonos);
+
+        adapterRecyclerViewClientesAbonos = new AdapterRecyclerViewClientesAbonos(listaAbonos, this, R.layout.item_recyclerview_clientes_abonos);
+        recyclerViewClientesAbonos.setAdapter(adapterRecyclerViewClientesAbonos);
+
+        cliente.addChangeListener(new RealmChangeListener<RealmModel>() {
+            @Override
+            public void onChange(RealmModel realmModel) {
+                adapterRecyclerViewClientesAbonos.notifyDataSetChanged();
+            }
+        });
 
         //Realizar filtrado por fecha
         btnFiltrarAbonos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(dateFinal.after(dateInicial)){
-
+                    refrescarListaAbonos();
                 }else{
                     toastFechaNoValida();
                 }
@@ -140,19 +158,37 @@ public class ClientesActivity extends AppCompatActivity {
 
     }
 
+    private void crearAbono(Abono abono){
+        realm.beginTransaction();
+        realm.copyToRealm(abono);
+        cliente.getAbonosCliente().add(abono);
+        realm.commitTransaction();
+        refrescarListaAbonos();
+    }
+
     private void consultarCliente() {
         cliente = realm.where(Cliente.class).equalTo("id", idCliente).findFirst();
         getSupportActionBar().setTitle("Abonos: " + cliente.getNombreCliente());
-        cliente.addChangeListener(new RealmChangeListener<RealmModel>() {
-            @Override
-            public void onChange(RealmModel realmModel) {
 
-            }
-        });
         //Duda pero a ver como jala
         //https://stackoverflow.com/questions/30115021/how-to-convert-realmresults-object-to-realmlist
         listaAbonos = new RealmList<Abono>();
-        listaAbonos.addAll(cliente.getAbonosCliente().where().between("fechaAbono", dateInicial, dateFinal).findAll());
+        listaAbonos.addAll(cliente.getAbonosCliente().where().between("fechaAbono", dateInicial, dateFinal).findAll().sort("fechaAbono", Sort.DESCENDING));
+
+        /*
+        for(Abono abono : cliente.getAbonosCliente()){
+            Date fecha = abono.getFechaAbono();
+            if(fecha.before(dateFinal) && fecha.after(dateInicial)){
+                listaAbonos.add(abono);
+            }
+        }
+        */
+    }
+
+    private void refrescarListaAbonos(){
+        listaAbonos.clear();
+        listaAbonos.addAll(cliente.getAbonosCliente().where().between("fechaAbono", dateInicial, dateFinal).findAll().sort("fechaAbono", Sort.DESCENDING));
+        adapterRecyclerViewClientesAbonos.notifyDataSetChanged();
     }
 
     private void inicializarFechas(){
@@ -257,9 +293,13 @@ public class ClientesActivity extends AppCompatActivity {
         builder.setView(viewInflated);
 
         final EditText editTextAbonoConceptoValor = viewInflated.findViewById(R.id.editTextAbonoConceptoValor);
-        final EditText editTextDescripcionGastoValor = viewInflated.findViewById(R.id.editTextDescripcionGastoValor);
+        final EditText editTextAbonoDescripcionValor = viewInflated.findViewById(R.id.editTextAbonoDescripcionValor);
         CardView cardViewAbonoFechaButton = viewInflated.findViewById(R.id.cardViewAbonoFechaButton);
         TextView textViewAbonoFechaMostrar = viewInflated.findViewById(R.id.textViewAbonoFechaMostrar);
+        final EditText editTextAbonoMontoValor = viewInflated.findViewById(R.id.editTextAbonoMontoValor);
+
+        dateAbonoInicial = new Date();
+        textViewAbonoFechaMostrar.setText(dateFormat.format(dateInicial));
 
         cardViewAbonoFechaButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,7 +311,18 @@ public class ClientesActivity extends AppCompatActivity {
         builder.setPositiveButton("Registrar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                String concepto = editTextAbonoConceptoValor.getText().toString().trim();
+                String descripcion = editTextAbonoDescripcionValor.getText().toString().trim();
+                Date fecha = dateAbonoInicial;
+                double monto = Double.parseDouble(editTextAbonoMontoValor.getText().toString().trim());
+                if(true){//VALIDACIONES
+                    Abono abono = new Abono();
+                    abono.setConceptoAbono(concepto);
+                    abono.setDescripcionAbono(descripcion);
+                    abono.setFechaAbono(fecha);
+                    abono.setMontoAbono(monto);
+                    crearAbono(abono);
+                }
             }
         });
 
@@ -301,13 +352,13 @@ public class ClientesActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 calendar.set(year, month, dayOfMonth);
-                dateAbonoInicial = calendar.getTime();
             }
         });
 
         builderCalendar.setPositiveButton("Seleccionar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dateAbonoInicial = calendar.getTime();
                 mostrarFecha.setText(dateFormat.format(dateAbonoInicial));
             }
         });
