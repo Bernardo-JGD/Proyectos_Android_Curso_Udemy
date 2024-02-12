@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Seccion_8_Shared_Preferences_SplashScreen</string>
+
+    <string name="tvCorreo">Correo electrónico</string>
+    <string name="hintCorreo">mi_correo@mail.com</string>
+    <string name="tvPassword">Contraseña</string>
+    <string name="switchRecordar">Recordar</string>
+    <string name="btnIniciarSesion">Iniciar sesión</string>
+</resources>
